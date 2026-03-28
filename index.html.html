@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Singh Medicals — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--p:#6366f1;--pd:#4f46e5;--pl:#eef2ff;--pm:#818cf8;
+--g:#10b981;--gd:#059669;--gl:#d1fae5;
+--bg:#f8fafc;--surface:#ffffff;--text:#0f172a;--muted:#64748b;--subtle:#94a3b8;
+--border:#e2e8f0;--border2:#cbd5e1;
+--danger:#ef4444;--warn:#f59e0b;--info:#3b82f6;--purple:#8b5cf6;
+--sh:0 1px 3px 0 rgb(0 0 0/0.1),0 1px 2px -1px rgb(0 0 0/0.1);
+--sh2:0 4px 6px -1px rgb(0 0 0/0.1),0 2px 4px -2px rgb(0 0 0/0.1);
+--sh3:0 10px 15px -3px rgb(0 0 0/0.1),0 4px 6px -4px rgb(0 0 0/0.1);
+--sh4:0 25px 50px -12px rgb(0 0 0/0.25);
+--r:12px;--r2:16px;--r3:20px;
+--transition:all .2s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
+/* ===== TOAST ===== */
+#toast-container{position:fixed;top:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast-item{background:var(--surface);border:1px solid var(--border);padding:14px 20px;border-radius:var(--r);font-size:13px;font-weight:600;box-shadow:var(--sh3);transform:translateX(120%);transition:transform .4s cubic-bezier(.4,0,.2,1);pointer-events:auto;display:flex;align-items:center;gap:10px;max-width:380px;min-width:280px}
+.toast-item.show{transform:translateX(0)}
+.toast-item.success{border-left:4px solid var(--g)}
+.toast-item.error{border-left:4px solid var(--danger)}
+.toast-item.warning{border-left:4px solid var(--warn)}
+.toast-item .toast-icon{font-size:18px;flex-shrink:0}
+.toast-item .toast-msg{flex:1;line-height:1.5}
+.toast-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:2px;line-height:1}
+
+/* ===== PRINT ===== */
+@media print{
+body *{visibility:hidden}
+#printArea,#printArea *{visibility:visible}
+#printArea{position:absolute;left:0;top:0;width:100%;padding:20px;background:#fff}
+.no-print{display:none!important}
+}
+
+/* ===== AUTH SCREEN ===== */
+.auth-overlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
+.auth-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.auth-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);overflow:hidden}
+.auth-bg::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);top:-200px;right:-200px;animation:authPulse 8s ease-in-out infinite alternate}
+.auth-bg::after{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(16,185,129,.1),transparent 70%);bottom:-100px;left:-100px;animation:authPulse 6s ease-in-out infinite alternate-reverse}
+@keyframes authPulse{0%{transform:scale(1)}100%{transform:scale(1.3)}}
+.auth-particles{position:absolute;inset:0;overflow:hidden}
+.auth-particle{position:absolute;background:rgba(255,255,255,.03);border-radius:50%}
+.auth-particle:nth-child(1){width:300px;height:300px;top:10%;left:60%;animation:float 20s infinite}
+.auth-particle:nth-child(2){width:200px;height:200px;top:60%;left:20%;animation:float 15s infinite reverse}
+.auth-particle:nth-child(3){width:150px;height:150px;top:30%;left:30%;animation:float 18s infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(180deg)}}
+
+.auth-card{position:relative;z-index:1;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:48px 40px;width:100%;max-width:440px;box-shadow:0 25px 80px rgba(0,0,0,.3);animation:authSlideIn .6s cubic-bezier(.4,0,.2,1)}
+@keyframes authSlideIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.auth-brand{text-align:center;margin-bottom:32px}
+.auth-logo{width:64px;height:64px;background:linear-gradient(135deg,var(--p),var(--pd));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;box-shadow:0 8px 24px rgba(99,102,241,.3)}
+.auth-title{font-family:'Poppins',sans-serif;font-size:26px;font-weight:800;color:var(--text);letter-spacing:-.5px}
+.auth-subtitle{font-size:14px;color:var(--muted);font-weight:500;margin-top:4px}
+
+.auth-form{display:flex;flex-direction:column;gap:16px}
+.auth-field{position:relative}
+.auth-field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.auth-field .input-wrap{position:relative}
+.auth-field .input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--subtle);pointer-events:none;transition:color .2s}
+.auth-field input{width:100%;border:2px solid var(--border);border-radius:var(--r);padding:12px 14px 12px 44px;font-size:14px;font-family:'Inter',sans-serif;font-weight:500;outline:none;transition:var(--transition);background:var(--bg)}
+.auth-field input:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 4px rgba(99,102,241,.1)}
+.auth-field input:focus~.input-icon{color:var(--p)}
+.auth-field input::placeholder{color:var(--subtle)}
+.auth-field .toggle-pass{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--subtle);padding:2px}
+
+.auth-error{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:10px 14px;border-radius:var(--r);font-size:13px;font-weight:600;display:none;align-items:center;gap:8px;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.auth-error.show{display:flex}
+
+.auth-btn{width:100%;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;border:none;padding:14px;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 16px rgba(99,102,241,.3);transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.auth-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(99,102,241,.4)}
+.auth-btn:active{transform:translateY(0)}
+.auth-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.auth-btn .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none}
+.auth-btn.loading .spinner{display:block}
+.auth-btn.loading .btn-text{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.auth-footer{text-align:center;margin-top:20px;font-size:12px;color:var(--muted);font-weight:500}
+.auth-footer a{color:var(--p);font-weight:700;text-decoration:none}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:8px 0}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-divider span{font-size:11px;color:var(--subtle);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.auth-hint{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--r);padding:12px 14px;font-size:12px;color:#166534;font-weight:600;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+
+/* ===== SIDEBAR ===== */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:270px;background:var(--surface);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.sb-brand{padding:22px 24px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.sb-logo{width:40px;height:40px;background:linear-gradient(135deg,var(--p),var(--pd));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 2px 8px rgba(99,102,241,.2)}
+.sb-name{font-family:'Poppins',sans-serif;font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.sb-name span{color:var(--p)}
+.sb-sub{font-size:11px;color:var(--subtle);font-weight:600;margin-top:1px}
+.sb-nav{flex:1;padding:16px 12px;overflow-y:auto}
+.sb-section{font-size:10px;color:var(--subtle);font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:12px 12px 6px;margin-top:6px}
+.sb-item{display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:var(--transition);margin-bottom:2px;text-decoration:none;position:relative;border:1px solid transparent}
+.sb-item:hover{background:var(--bg);color:var(--text);border-color:var(--border)}
+.sb-item.active{background:var(--pl);color:var(--pd);font-weight:700;border-color:rgba(99,102,241,.15)}
+.sb-item.active::before{content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:4px;height:24px;background:var(--p);border-radius:0 4px 4px 0}
+.sb-icon{font-size:17px;width:22px;text-align:center}
+.sb-badge{margin-left:auto;background:var(--danger);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:50px;min-width:20px;text-align:center;line-height:1.4}
+.sb-badge.green{background:var(--g)}
+.sb-foot{padding:16px;border-top:1px solid var(--border)}
+.sb-user{display:flex;align-items:center;gap:10px}
+.sb-ava{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--purple));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;color:#fff;font-weight:800}
+.sb-uname{font-size:13px;font-weight:700}
+.sb-uemail{font-size:11px;color:var(--subtle);font-weight:500;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Mobile menu toggle */
+.mobile-toggle{display:none;position:fixed;top:18px;left:16px;z-index:101;width:40px;height:40px;border-radius:10px;background:var(--surface);border:1px solid var(--border);cursor:pointer;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--sh)}
+
+/* ===== MAIN ===== */
+.main{margin-left:270px;min-height:100vh;padding:0;transition:margin .3s}
+.topbar{background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tb-left{display:flex;align-items:center;gap:14px}
+.tb-breadcrumb{font-size:12px;color:var(--subtle);font-weight:600;display:flex;align-items:center;gap:6px}
+.tb-breadcrumb span{color:var(--text);font-weight:700}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-time{font-size:12px;color:var(--muted);font-weight:600;background:var(--bg);padding:6px 12px;border-radius:8px;border:1px solid var(--border)}
+
+/* Buttons */
+.btn{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:var(--transition);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--p);color:#fff;box-shadow:0 2px 8px rgba(99,102,241,.2)}
+.btn-primary:hover{background:var(--pd);box-shadow:0 4px 12px rgba(99,102,241,.3)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1.5px solid var(--border)}
+.btn-secondary:hover{border-color:var(--border2);background:var(--bg)}
+.btn-danger{background:#fef2f2;color:var(--danger);border:1px solid #fecaca}
+.btn-danger:hover{background:#fee2e2}
+.btn-success{background:var(--g);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.btn-success:hover{background:var(--gd)}
+.btn-ghost{background:transparent;color:var(--muted);border:none;padding:6px 10px}
+.btn-ghost:hover{color:var(--text);background:var(--bg)}
+
+.content{padding:28px 32px}
+
+/* ===== PAGES ===== */
+.page{display:none;animation:pageIn .3s ease}
+.page.active{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== STAT CARDS ===== */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:28px}
+.stat-card{background:var(--surface);border-radius:var(--r2);padding:22px;border:1px solid var(--border);box-shadow:var(--sh);position:relative;overflow:hidden;transition:var(--transition)}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r2) var(--r2) 0 0}
+.stat-card.c-indigo::before{background:linear-gradient(90deg,var(--p),var(--pm))}
+.stat-card.c-green::before{background:linear-gradient(90deg,var(--g),#34d399)}
+.stat-card.c-blue::before{background:linear-gradient(90deg,var(--info),#60a5fa)}
+.stat-card.c-amber::before{background:linear-gradient(90deg,var(--warn),#fbbf24)}
+.stat-card.c-red::before{background:linear-gradient(90deg,var(--danger),#f87171)}
+.stat-card.c-purple::before{background:linear-gradient(90deg,var(--purple),#a78bfa)}
+.sc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.sc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.sc-icon.i-indigo{background:var(--pl);color:var(--p)}
+.sc-icon.i-green{background:var(--gl);color:var(--g)}
+.sc-icon.i-blue{background:#dbeafe;color:var(--info)}
+.sc-icon.i-amber{background:#fef3c7;color:var(--warn)}
+.sc-icon.i-red{background:#fee2e2;color:var(--danger)}
+.sc-icon.i-purple{background:#ede9fe;color:var(--purple)}
+.sc-val{font-family:'Poppins',sans-serif;font-size:30px;font-weight:800;color:var(--text);letter-spacing:-.5px;line-height:1.1}
+.sc-label{font-size:12px;color:var(--muted);font-weight:600;margin-top:4px}
+
+/* ===== TABLE ===== */
+.card{background:var(--surface);border-radius:var(--r2);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
+.card-header{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:12px}
+.card-title{font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-input{border:1.5px solid var(--border);border-radius:8px;padding:8px 12px 8px 36px;font-size:12px;font-family:'Inter',sans-serif;font-weight:500;outline:none;min-width:220px;transition:var(--transition);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") no-repeat 12px center}
+.search-input:focus{border-color:var(--p);background-color:#fff;box-shadow:0 0 0 3px rgba(99,102,241,.08)}
+
+table{width:100%;border-collapse:collapse}
+thead{background:var(--bg)}
+th{padding:12px 18px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:12px 18px;font-size:13px;font-weight:500;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+tr{transition:background .15s}
+tr:hover{background:#fafbfc}
+tbody tr:last-child td{border-bottom:none}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:50px;font-size:11px;font-weight:700}
+.badge-green{background:var(--gl);color:#065f46}
+.badge-blue{background:#dbeafe;color:#1e40af}
+.badge-amber{background:#fef3c7;color:#92400e}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-purple{background:#ede9fe;color:#5b21b6}
+.badge-gray{background:#f3f4f6;color:#6b7280}
+.badge-indigo{background:var(--pl);color:var(--pd)}
+
+.empty-state{padding:64px 24px;text-align:center}
+.empty-icon{font-size:48px;margin-bottom:12px;opacity:.6}
+.empty-title{font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}
+.empty-text{font-size:13px;color:var(--muted);font-weight:500}
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--surface);border-radius:var(--r3);width:100%;max-width:640px;box-shadow:var(--sh4);position:relative;margin:auto;animation:modalIn .25s ease}
+.modal-box.wide{max-width:900px}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.modal-close{width:32px;height:32px;border-radius:8px;background:var(--bg);border:1px solid var(--border);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:var(--transition);color:var(--muted)}
+.modal-close:hover{background:#fee2e2;color:var(--danger);border-color:#fecaca}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+
+/* ===== FORM ===== */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid .full{grid-column:1/-1}
+.form-group{margin-bottom:0}
+.form-group label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;font-family:'Inter',sans-serif;font-weight:500;outline:none;background:var(--bg);transition:var(--transition)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 3px rgba(99,102,241,.08)}
+.form-group textarea{resize:none;min-height:80px}
+
+/* ===== BILLING ===== */
+.bill-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start}
+.bill-stack{display:flex;flex-direction:column;gap:20px}
+.bill-card{background:var(--surface);border-radius:var(--r2);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
+.bill-card-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
+.bill-card-title{font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px}
+.bill-card-body{padding:20px}
+
+.item-row{display:grid;grid-template-columns:2fr .7fr .7fr .7fr auto;gap:8px;align-items:end;margin-bottom:14px}
+.item-row .form-group{margin:0}
+.item-row .form-group label{font-size:10px}
+.item-row .form-group input,.item-row .form-group select{padding:8px 10px;font-size:12px}
+.add-item-btn{background:var(--p);color:#fff;border:none;width:38px;height:38px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:var(--transition);flex-shrink:0}
+.add-item-btn:hover{background:var(--pd);transform:scale(1.05)}
+
+.items-table{width:100%;border-collapse:collapse;margin-top:10px}
+.items-table th{background:var(--bg);padding:8px 12px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;text-align:left;border-bottom:1px solid var(--border)}
+.items-table td{padding:8px 12px;font-size:12px;font-weight:500;border-bottom:1px solid #f1f5f9}
+.items-table tr:hover{background:#fafbfc}
+.remove-item{background:none;border:none;color:var(--danger);cursor:pointer;font-size:15px;padding:2px;transition:transform .15s}
+.remove-item:hover{transform:scale(1.2)}
+.items-empty{text-align:center;padding:32px;color:var(--muted);font-size:13px;font-weight:500}
+
+/* Medicine suggestions */
+.suggest-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-top:none;border-radius:0 0 8px 8px;max-height:220px;overflow-y:auto;z-index:20;box-shadow:var(--sh2);display:none}
+.suggest-dropdown.open{display:block}
+.suggest-item{padding:10px 14px;cursor:pointer;font-size:12px;font-weight:600;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f8fafc;transition:background .1s}
+.suggest-item:hover{background:var(--pl)}
+.suggest-item:last-child{border-bottom:none}
+.suggest-price{color:var(--p);font-weight:800;font-size:11px}
+.suggest-stock{font-size:10px;color:var(--muted)}
+
+/* Bill summary */
+.bill-summary{background:var(--surface);border-radius:var(--r2);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden;position:sticky;top:80px}
+.summary-head{background:linear-gradient(135deg,var(--pd),var(--p));padding:18px 22px;color:#fff}
+.summary-title{font-family:'Poppins',sans-serif;font-size:16px;font-weight:700}
+.summary-sub{font-size:12px;color:rgba(255,255,255,.7);font-weight:500;margin-top:2px}
+.summary-body{padding:22px}
+.summary-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;font-weight:500;border-bottom:1px solid #f1f5f9}
+.summary-row:last-child{border-bottom:none}
+.summary-row.total{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;color:var(--pd);border-top:2px solid var(--p);border-bottom:none;padding-top:14px;margin-top:6px}
+.summary-row .s-label{color:var(--muted)}
+.summary-row.discount .s-label{color:var(--purple)}
+.summary-row.discount .s-value{color:var(--purple);font-weight:700}
+
+.discount-box{background:#faf5ff;border:1.5px solid #e9d5ff;border-radius:10px;padding:14px;margin-top:14px}
+.discount-title{font-size:12px;font-weight:800;color:#5b21b6;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.discount-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.discount-row .form-group{margin:0}
+.discount-row .form-group label{font-size:10px;color:#7c3aed}
+.discount-row .form-group input,.discount-row .form-group select{padding:8px 10px;font-size:12px;border-color:#e9d5ff}
+.discount-row .form-group input:focus,.discount-row .form-group select:focus{border-color:#a855f7}
+.apply-discount{background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;height:38px}
+
+.bill-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.bill-actions .btn{flex:1;justify-content:center;padding:12px 16px;font-size:13px;font-weight:700}
+
+/* Print template */
+.print-bill{font-family:'Inter',sans-serif;max-width:380px;margin:0 auto;padding:20px;background:#fff}
+.pb-header{text-align:center;border-bottom:2px dashed #333;padding-bottom:12px;margin-bottom:12px}
+.pb-shop{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800}
+.pb-addr{font-size:10px;color:#666;margin-top:3px}
+.pb-phone{font-size:11px;font-weight:700;margin-top:2px}
+.pb-divider{border:none;border-top:1px dashed #ccc;margin:10px 0}
+.pb-info{font-size:11px;margin-bottom:2px}
+.pb-info strong{font-weight:800}
+.pb-items{width:100%;border-collapse:collapse;margin:10px 0}
+.pb-items th{border-bottom:1px solid #333;padding:5px 4px;font-size:10px;text-align:left;font-weight:800}
+.pb-items td{padding:4px;font-size:11px;border-bottom:1px dashed #eee}
+.pb-items td:last-child,.pb-items th:last-child{text-align:right}
+.pb-totals{border-top:2px dashed #333;padding-top:8px;margin-top:8px}
+.pb-total-row{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}
+.pb-total-row.grand{font-size:16px;font-weight:900;border-top:1px solid #333;padding-top:6px;margin-top:4px}
+.pb-footer{text-align:center;border-top:2px dashed #333;padding-top:10px;margin-top:12px;font-size:10px;color:#666}
+.pb-footer strong{color:#333}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+.sidebar{transform:translateX(-100%)}
+.sidebar.open{transform:translateX(0)}
+.mobile-toggle{display:flex}
+.main{margin-left:0}
+.content{padding:20px 16px}
+.topbar{padding:0 16px}
+.bill-layout{grid-template-columns:1fr}
+.bill-summary{position:static}
+.item-row{grid-template-columns:1fr 1fr;gap:6px}
+.form-grid{grid-template-columns:1fr}
+.stats-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:500px){
+.stats-row{grid-template-columns:1fr}
+.auth-card{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<!-- ===== AUTH SCREEN ===== -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-bg">
+    <div class="auth-particles">
+      <div class="auth-particle"></div>
+      <div class="auth-particle"></div>
+      <div class="auth-particle"></div>
+    </div>
+  </div>
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="auth-logo">💊</div>
+      <div class="auth-title">Singh Medicals</div>
+      <div class="auth-subtitle">Admin Panel · Secure Login</div>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="authLogin">
+      <div class="auth-form">
+        <div class="auth-error" id="loginError"><span>⚠️</span><span id="loginErrorMsg"></span></div>
+        <div class="auth-field">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input type="email" id="loginEmail" placeholder="admin@singhmedicals.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="loginPass" placeholder="Enter your password" autocomplete="current-password">
+            <button class="toggle-pass" onclick="ADMIN.togglePass('loginPass',this)" type="button">👁️</button>
+          </div>
+        </div>
+        <button class="auth-btn" id="loginBtn" onclick="ADMIN.doLogin()">
+          <div class="spinner"></div>
+          <span class="btn-text">🔐 Sign In</span>
+        </button>
+      </div>
+      <div class="auth-divider"><span>or</span></div>
+      <div style="text-align:center">
+        <button class="btn btn-secondary" style="width:100%;justify-content:center;padding:12px" onclick="ADMIN.showRegister()">📝 Create Admin Account</button>
+      </div>
+      <div class="auth-hint" style="margin-top:16px">
+        <span>💡</span>
+        <span>First time? Click "Create Admin Account" to set up your email & password. Only one admin account needed.</span>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="authRegister" style="display:none">
+      <div class="auth-form">
+        <div class="auth-error" id="regError"><span>⚠️</span><span id="regErrorMsg"></span></div>
+        <div class="auth-field">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input type="email" id="regEmail" placeholder="your-email@example.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>Password (min 6 characters)</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="regPass" placeholder="Create a strong password" autocomplete="new-password">
+            <button class="toggle-pass" onclick="ADMIN.togglePass('regPass',this)" type="button">👁️</button>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>Confirm Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="regPass2" placeholder="Confirm password" autocomplete="new-password">
+          </div>
+        </div>
+        <button class="auth-btn" id="regBtn" onclick="ADMIN.doRegister()">
+          <div class="spinner"></div>
+          <span class="btn-text">✅ Create Account</span>
+        </button>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <button class="btn btn-ghost" onclick="ADMIN.showLogin()">← Back to Login</button>
+      </div>
+    </div>
+
+    <!-- FORGOT PASSWORD -->
+    <div id="authForgot" style="display:none">
+      <div class="auth-form">
+        <div class="auth-error" id="forgotError"><span>⚠️</span><span id="forgotErrorMsg"></span></div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;text-align:center;font-weight:500">Enter your email to receive a password reset link.</p>
+        <div class="auth-field">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input type="email" id="forgotEmail" placeholder="your-email@example.com">
+          </div>
+        </div>
+        <button class="auth-btn" id="forgotBtn" onclick="ADMIN.doForgot()">
+          <div class="spinner"></div>
+          <span class="btn-text">📩 Send Reset Link</span>
+        </button>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <button class="btn btn-ghost" onclick="ADMIN.showLogin()">← Back to Login</button>
+      </div>
+    </div>
+
+    <div class="auth-footer" style="margin-top:8px">
+      <span id="forgotLink" style="cursor:pointer" onclick="ADMIN.showForgot()">Forgot password?</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SIDEBAR ===== -->
+<button class="mobile-toggle no-print" onclick="ADMIN.toggleSidebar()">☰</button>
+<div class="sidebar no-print" id="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo">💊</div>
+    <div>
+      <div class="sb-name">Singh <span>Medicals</span></div>
+      <div class="sb-sub">Admin Dashboard</div>
+    </div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-section">Overview</div>
+    <div class="sb-item active" onclick="ADMIN.goPage('dashboard')"><span class="sb-icon">📊</span>Dashboard</div>
+    <div class="sb-section">Billing</div>
+    <div class="sb-item" onclick="ADMIN.goPage('billing')"><span class="sb-icon">🧾</span>New Bill</div>
+    <div class="sb-item" onclick="ADMIN.goPage('bills')"><span class="sb-icon">📄</span>Bill History</div>
+    <div class="sb-section">Management</div>
+    <div class="sb-item" onclick="ADMIN.goPage('orders')"><span class="sb-icon">📦</span>Orders<span class="sb-badge" id="orderBadge" style="display:none">0</span></div>
+    <div class="sb-item" onclick="ADMIN.goPage('inventory')"><span class="sb-icon">💊</span>Inventory</div>
+    <div class="sb-item" onclick="ADMIN.goPage('customers')"><span class="sb-icon">👥</span>Customers</div>
+    <div class="sb-section">More</div>
+    <div class="sb-item" onclick="ADMIN.goPage('reviews')"><span class="sb-icon">⭐</span>Reviews</div>
+    <div class="sb-item" onclick="ADMIN.goPage('settings')"><span class="sb-icon">⚙️</span>Settings</div>
+  </div>
+  <div class="sb-foot">
+    <div class="sb-user">
+      <div class="sb-ava" id="sbAvaText">AS</div>
+      <div>
+        <div class="sb-uname" id="sbUname">Admin</div>
+        <div class="sb-uemail" id="sbEmail">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main no-print" id="mainArea">
+  <div class="topbar">
+    <div class="tb-left">
+      <div class="tb-breadcrumb">Admin / <span id="tbTitle">Dashboard</span></div>
+    </div>
+    <div class="tb-right">
+      <span class="tb-time" id="tbDate"></span>
+      <button class="btn btn-danger" onclick="ADMIN.doLogout()" style="font-size:11px">🚪 Logout</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="page active" id="pg-dashboard">
+      <div class="stats-row" id="dashStats"></div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📦 Recent Orders</div>
+        </div>
+        <div style="overflow-x:auto">
+          <table><thead><tr><th>Order #</th><th>Name</th><th>Mobile</th><th>Medicines</th><th>Status</th><th>Date</th><th>Action</th></tr></thead><tbody id="dashOrdersTbl"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BILLING ===== -->
+    <div class="page" id="pg-billing">
+      <div class="bill-layout">
+        <div class="bill-stack">
+          <!-- Patient Info -->
+          <div class="bill-card">
+            <div class="bill-card-head"><div class="bill-card-title">👤 Patient Info</div><div style="font-size:12px;color:var(--muted);font-weight:700">Bill #: <strong id="billNo" style="color:var(--pd)">---</strong></div></div>
+            <div class="bill-card-body">
+              <div class="form-grid">
+                <div class="form-group"><label>Patient Name *</label><input type="text" id="bName" placeholder="Full name"></div>
+                <div class="form-group"><label>Mobile Number *</label><input type="tel" id="bMobile" placeholder="10 digits" maxlength="10"></div>
+                <div class="form-group"><label>Address</label><input type="text" id="bAddress" placeholder="Optional"></div>
+                <div class="form-group"><label>Date</label><input type="date" id="bDate"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Add Items -->
+          <div class="bill-card">
+            <div class="bill-card-head"><div class="bill-card-title">💊 Items</div><div style="font-size:12px;color:var(--muted);font-weight:700"><span id="billItemCount">0</span> items</div></div>
+            <div class="bill-card-body">
+              <div class="item-row">
+                <div class="form-group" style="position:relative">
+                  <label>Medicine *</label>
+                  <input type="text" id="bMedName" placeholder="Search medicine..." autocomplete="off" oninput="ADMIN.onMedSearch(this.value)" onfocus="ADMIN.onMedSearch(this.value)">
+                  <div class="suggest-dropdown" id="medSuggest"></div>
+                </div>
+                <div class="form-group"><label>Qty *</label><input type="number" id="bMedQty" placeholder="1" min="1" value="1"></div>
+                <div class="form-group"><label>Price ₹</label><input type="number" id="bMedPrice" placeholder="0" min="0" step="0.01"></div>
+                <div class="form-group"><label>Unit</label><input type="text" id="bMedUnit" placeholder="strip" readonly style="background:#f1f5f9"></div>
+                <button class="add-item-btn" onclick="ADMIN.addBillItem()" title="Add">+</button>
+              </div>
+              <div style="overflow-x:auto">
+                <table class="items-table"><thead><tr><th>#</th><th>Medicine</th><th>Unit</th><th>Qty</th><th>Price</th><th>Amount</th><th></th></tr></thead><tbody id="billItemsTbl"><tr><td colspan="7"><div class="items-empty">📋 Search & add medicines above</div></td></tr></tbody></table>
+              </div>
+            </div>
+          </div>
+          <!-- Payment -->
+          <div class="bill-card">
+            <div class="bill-card-head"><div class="bill-card-title">💳 Payment</div></div>
+            <div class="bill-card-body">
+              <div class="form-grid">
+                <div class="form-group"><label>Mode *</label><select id="bPayMode"><option value="Cash">💵 Cash</option><option value="UPI">💳 UPI</option><option value="Cash + UPI">💵💳 Cash + UPI</option><option value="Credit">📝 Credit (Udhaar)</option></select></div>
+                <div class="form-group"><label>UPI Ref / Note</label><input type="text" id="bPayRef" placeholder="Transaction ID"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Summary -->
+        <div>
+          <div class="bill-summary">
+            <div class="summary-head"><div class="summary-title">🧾 Bill Summary</div><div class="summary-sub" id="bsSummSub">0 items · ₹0</div></div>
+            <div class="summary-body">
+              <div class="summary-row"><span class="s-label">Subtotal</span><span class="s-value" id="bsSubtotal">₹0.00</span></div>
+              <div class="summary-row discount" id="bsDiscRow" style="display:none"><span class="s-label">🏷️ Discount</span><span class="s-value" id="bsDiscAmt">-₹0.00</span></div>
+              <div class="summary-row"><span class="s-label">GST</span><span class="s-value" id="bsTax">₹0.00</span></div>
+              <div class="summary-row total"><span class="s-label">Total</span><span class="s-value" id="bsGrandTotal">₹0.00</span></div>
+              <div class="discount-box">
+                <div class="discount-title">🏷️ Discount</div>
+                <div class="discount-row">
+                  <div class="form-group"><label>Type</label><select id="discType" onchange="ADMIN.calcBill()"><option value="percent">%</option><option value="flat">₹ Flat</option></select></div>
+                  <div class="form-group"><label>Value</label><input type="number" id="discValue" placeholder="0" min="0" step="0.01" oninput="ADMIN.calcBill()"></div>
+                  <button class="apply-discount" onclick="ADMIN.calcBill()">Apply</button>
+                </div>
+                <div style="margin-top:8px;font-size:10px;color:#7c3aed;font-weight:600" id="discPreview">No discount</div>
+              </div>
+              <div class="bill-actions">
+                <button class="btn btn-success" onclick="ADMIN.saveBill()" style="flex:1">✅ Save Bill</button>
+                <button class="btn btn-primary" onclick="ADMIN.saveBill(true)" style="flex:1">🖨️ Save & Print</button>
+              </div>
+              <div style="text-align:center;margin-top:10px">
+                <button class="btn btn-ghost" onclick="ADMIN.resetBill()" style="color:var(--danger);font-size:11px">🗑️ Clear All</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BILLS HISTORY ===== -->
+    <div class="page" id="pg-bills">
+      <div class="stats-row" id="billsStats"></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">📄 Bill History</div><div class="card-actions"><input class="search-input" id="billsSearch" placeholder="Search bills..." oninput="ADMIN.filterBills(this.value)"></div></div>
+        <div style="overflow-x:auto"><table><thead><tr><th>Bill #</th><th>Patient</th><th>Mobile</th><th>Items</th><th>Subtotal</th><th>Discount</th><th>Total</th><th>Payment</th><th>Date</th><th>Actions</th></tr></thead><tbody id="billsTbl"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ===== ORDERS ===== -->
+    <div class="page" id="pg-orders">
+      <div class="stats-row" id="orderStats"></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">📦 Orders</div><div class="card-actions"><input class="search-input" id="orderSearch" placeholder="Search orders..." oninput="ADMIN.filterOrders(this.value)"></div></div>
+        <div style="overflow-x:auto"><table><thead><tr><th>Order #</th><th>Name</th><th>Mobile</th><th>Medicines</th><th>Status</th><th>Delivery</th><th>Payment</th><th>Date</th><th>Actions</th></tr></thead><tbody id="ordersTbl"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ===== INVENTORY ===== -->
+    <div class="page" id="pg-inventory">
+      <div class="stats-row" id="invStats"></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">💊 Inventory</div><div class="card-actions"><input class="search-input" id="invSearch" placeholder="Search medicines..." oninput="ADMIN.filterInv(this.value)"><button class="btn btn-primary" onclick="ADMIN.openAddMed()">+ Add Medicine</button></div></div>
+        <div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Category</th><th>Brand</th><th>Price</th><th>Stock</th><th>Unit</th><th>Rx</th><th>Actions</th></tr></thead><tbody id="invTbl"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ===== CUSTOMERS ===== -->
+    <div class="page" id="pg-customers">
+      <div class="card">
+        <div class="card-header"><div class="card-title">👥 Customers</div><div class="card-actions"><input class="search-input" id="custSearch" placeholder="Search..." oninput="ADMIN.filterCust(this.value)"></div></div>
+        <div style="overflow-x:auto"><table><thead><tr><th>Phone</th><th>Last Login</th><th>Orders</th></tr></thead><tbody id="custTbl"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ===== REVIEWS ===== -->
+    <div class="page" id="pg-reviews">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⭐ Reviews</div></div>
+        <div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Location</th><th>Stars</th><th>Review</th><th>Date</th><th>Actions</th></tr></thead><tbody id="revTbl"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div class="page" id="pg-settings">
+      <div class="bill-card" style="max-width:520px">
+        <div class="bill-card-head"><div class="bill-card-title">⚙️ Settings</div></div>
+        <div class="bill-card-body">
+          <div class="form-group" style="margin-bottom:14px"><label>Shop Name</label><input type="text" id="setShop" value="Singh Medicals"></div>
+          <div class="form-group" style="margin-bottom:14px"><label>Phone</label><input type="text" id="setPhone" value="7479551525"></div>
+          <div class="form-group" style="margin-bottom:14px"><label>UPI ID</label><input type="text" id="setUPI" value="7479551525@ybl"></div>
+          <div class="form-group" style="margin-bottom:14px"><label>GST Rate %</label><input type="number" id="setGST" value="0" min="0" step="0.01"></div>
+          <button class="btn btn-primary" onclick="ADMIN.saveSettings()">💾 Save Settings</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="printArea" style="display:none"></div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalStatus">
+  <div class="modal-box">
+    <div class="modal-header"><div class="modal-title">📦 Update Status</div><button class="modal-close" onclick="ADMIN.closeModal('modalStatus')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:14px"><label>Order</label><input type="text" id="msOid" readonly style="background:var(--bg);font-weight:700"></div>
+      <div class="form-group"><label>Status</label><select id="msStatus"><option>Order Placed</option><option>Confirmed</option><option>Dispatched</option><option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option></select></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="ADMIN.closeModal('modalStatus')">Cancel</button><button class="btn btn-primary" onclick="ADMIN.updateOrderStatus()">✅ Update</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalMed">
+  <div class="modal-box">
+    <div class="modal-header"><div class="modal-title" id="medModalTitle">💊 Add Medicine</div><button class="modal-close" onclick="ADMIN.closeModal('modalMed')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="medKey" value="">
+      <div class="form-grid">
+        <div class="form-group"><label>Name *</label><input type="text" id="medName" placeholder="Medicine name"></div>
+        <div class="form-group"><label>Brand</label><input type="text" id="medBrand" placeholder="Brand"></div>
+        <div class="form-group"><label>Category</label><select id="medCat"><option>Medicines</option><option>Vitamins & Supplements</option><option>Skincare</option><option>Baby Care</option><option>Ayurveda</option><option>Medical Devices</option><option>Wellness</option><option>Lab Tests</option></select></div>
+        <div class="form-group"><label>Price ₹ *</label><input type="number" id="medPrice" placeholder="0" min="0" step="0.01"></div>
+        <div class="form-group"><label>Stock *</label><input type="number" id="medQty" placeholder="0" min="0"></div>
+        <div class="form-group"><label>Unit</label><input type="text" id="medUnit" placeholder="strip / bottle"></div>
+        <div class="form-group"><label>Prescription?</label><select id="medRx"><option value="No">No (OTC)</option><option value="Yes">Yes (Rx)</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="ADMIN.closeModal('modalMed')">Cancel</button><button class="btn btn-primary" onclick="ADMIN.saveMed()">💾 Save</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalBillDetail">
+  <div class="modal-box wide">
+    <div class="modal-header"><div class="modal-title">🧾 Bill Details</div><button class="modal-close" onclick="ADMIN.closeModal('modalBillDetail')">✕</button></div>
+    <div class="modal-body" id="billDetailBody"></div>
+    <div class="modal-footer"><button class="btn btn-primary" onclick="ADMIN.reprintBill()">🖨️ Print</button><button class="btn btn-secondary" onclick="ADMIN.closeModal('modalBillDetail')">Close</button></div>
+  </div>
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+var FB_CONFIG = {
+  apiKey: "AIzaSyDwzGgM4_XgUH1KBc7hKUe8MBa12GORixI",
+  authDomain: "singh-medicals.firebaseapp.com",
+  databaseURL: "https://singh-medicals-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "singh-medicals",
+  storageBucket: "singh-medicals.firebasestorage.app",
+  messagingSenderId: "78567933543",
+  appId: "1:78567933543:web:f600bb9a0b799624b3b6c2",
+  measurementId: "G-65464FPTSZ"
+};
+
+var ADMIN = (function() {
+  var app, db, auth;
+  try {
+    app = firebase.initializeApp(FB_CONFIG);
+    db = firebase.database();
+    auth = firebase.auth();
+  } catch(e) { console.error("Firebase init error:", e); }
+
+  var orders=[], meds=[], customers=[], reviews=[], bills=[];
+  var billItems=[], currentBillKey=null, selectedMedKey=null, billCounter=0;
+  var settings = { shop:"Singh Medicals", phone:"7479551525", upi:"7479551525@ybl", gst:0 };
+  var currentUser = null;
+
+  // ========== TOAST ==========
+  function toast(msg, type) {
+    type = type || 'success';
+    var icon = type==='success'?'✅':type==='error'?'❌':'⚠️';
+    var container = document.getElementById('toast-container');
+    var el = document.createElement('div');
+    el.className = 'toast-item ' + type;
+    el.innerHTML = '<span class="toast-icon">'+icon+'</span><span class="toast-msg">'+msg+'</span><button class="toast-close" onclick="this.parentElement.remove()">✕</button>';
+    container.appendChild(el);
+    requestAnimationFrame(function(){ el.classList.add('show'); });
+    setTimeout(function(){ el.classList.remove('show'); setTimeout(function(){ if(el.parentElement) el.remove(); },400); }, 4000);
+  }
+
+  // ========== AUTH ==========
+  function showLogin(){ document.getElementById('authLogin').style.display='block'; document.getElementById('authRegister').style.display='none'; document.getElementById('authForgot').style.display='none'; document.getElementById('forgotLink').style.display='inline'; hideErrors(); }
+  function showRegister(){ document.getElementById('authLogin').style.display='none'; document.getElementById('authRegister').style.display='block'; document.getElementById('authForgot').style.display='none'; document.getElementById('forgotLink').style.display='none'; hideErrors(); }
+  function showForgot(){ document.getElementById('authLogin').style.display='none'; document.getElementById('authRegister').style.display='none'; document.getElementById('authForgot').style.display='block'; document.getElementById('forgotLink').style.display='none'; hideErrors(); }
+  function hideErrors(){ ['loginError','regError','forgotError'].forEach(function(id){ var e=document.getElementById(id); if(e) e.classList.remove('show'); }); }
+
+  function showAuthError(id, msg){ var el=document.getElementById(id); var msgEl=document.getElementById(id+'Msg'); if(el&&msgEl){ msgEl.textContent=msg; el.classList.add('show'); } }
+
+  function setLoading(btnId, loading){ var btn=document.getElementById(btnId); if(btn){ if(loading){btn.classList.add('loading');btn.disabled=true;}else{btn.classList.remove('loading');btn.disabled=false;} } }
+
+  function togglePass(inputId, btn){ var inp=document.getElementById(inputId); if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}else{inp.type='password';btn.textContent='👁️';} }
+
+  function firebaseErrorMsg(code){
+    var map = {
+      'auth/email-already-in-use':'This email is already registered. Try logging in.',
+      'auth/invalid-email':'Invalid email address format.',
+      'auth/user-not-found':'No account found with this email.',
+      'auth/wrong-password':'Incorrect password. Try again.',
+      'auth/weak-password':'Password must be at least 6 characters.',
+      'auth/too-many-requests':'Too many attempts. Try again later.',
+      'auth/invalid-credential':'Invalid email or password.',
+      'auth/network-request-failed':'Network error. Check your internet.'
+    };
+    return map[code] || 'Something went wrong. Try again.';
+  }
+
+  function doLogin() {
+    hideErrors();
+    var email = (document.getElementById('loginEmail').value||'').trim();
+    var pass = (document.getElementById('loginPass').value||'').trim();
+    if(!email){ showAuthError('loginError','Enter your email address'); return; }
+    if(!pass){ showAuthError('loginError','Enter your password'); return; }
+    if(!auth){ showAuthError('loginError','Firebase not initialized'); return; }
+    setLoading('loginBtn', true);
+    auth.signInWithEmailAndPassword(email, pass)
+      .then(function(cred){ toast('Welcome back, '+cred.user.email+'!'); })
+      .catch(function(err){ showAuthError('loginError', firebaseErrorMsg(err.code)); setLoading('loginBtn', false); });
+  }
+
+  function doRegister() {
+    hideErrors();
+    var email = (document.getElementById('regEmail').value||'').trim();
+    var pass = (document.getElementById('regPass').value||'').trim();
+    var pass2 = (document.getElementById('regPass2').value||'').trim();
+    if(!email){ showAuthError('regError','Enter your email'); return; }
+    if(!pass || pass.length<6){ showAuthError('regError','Password must be at least 6 characters'); return; }
+    if(pass!==pass2){ showAuthError('regError','Passwords do not match'); return; }
+    if(!auth){ showAuthError('regError','Firebase not initialized'); return; }
+    setLoading('regBtn', true);
+    auth.createUserWithEmailAndPassword(email, pass)
+      .then(function(cred){
+        toast('Account created! Welcome!');
+        if(db) db.ref('admin_users/'+cred.user.uid).set({ email:email, createdAt:new Date().toISOString() });
+      })
+      .catch(function(err){ showAuthError('regError', firebaseErrorMsg(err.code)); setLoading('regBtn', false); });
+  }
+
+  function doForgot() {
+    hideErrors();
+    var email = (document.getElementById('forgotEmail').value||'').trim();
+    if(!email){ showAuthError('forgotError','Enter your email'); return; }
+    if(!auth){ showAuthError('forgotError','Firebase not initialized'); return; }
+    setLoading('forgotBtn', true);
+    auth.sendPasswordResetEmail(email)
+      .then(function(){ toast('Reset link sent to '+email+'! Check your inbox.'); showLogin(); setLoading('forgotBtn',false); })
+      .catch(function(err){ showAuthError('forgotError', firebaseErrorMsg(err.code)); setLoading('forgotBtn',false); });
+  }
+
+  function doLogout() {
+    if(!confirm('Logout karein?')) return;
+    if(auth) auth.signOut();
+    currentUser = null;
+  }
+
+  function onAuthReady(user) {
+    if(user) {
+      currentUser = user;
+      document.getElementById('authOverlay').classList.add('hidden');
+      document.getElementById('sbUname').textContent = user.displayName || 'Admin';
+      document.getElementById('sbEmail').textContent = user.email || '';
+      document.getElementById('sbAvaText').textContent = (user.email||'A').slice(0,2).toUpperCase();
+      setLoading('loginBtn',false);
+      setLoading('regBtn',false);
+      initData();
+    } else {
+      currentUser = null;
+      document.getElementById('authOverlay').classList.remove('hidden');
+      showLogin();
+    }
+  }
+
+  // ========== NAV ==========
+  var pageIcons={dashboard:"📊",billing:"🧾",bills:"📄",orders:"📦",inventory:"💊",customers:"👥",reviews:"⭐",settings:"⚙️"};
+  var pageTitles={dashboard:"Dashboard",billing:"New Bill",bills:"Bill History",orders:"Orders",inventory:"Inventory",customers:"Customers",reviews:"Reviews",settings:"Settings"};
+
+  function goPage(id) {
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+    var pg=document.getElementById('pg-'+id); if(pg) pg.classList.add('active');
+    document.querySelectorAll('.sb-item').forEach(function(s){s.classList.remove('active');});
+    document.querySelectorAll('.sb-item').forEach(function(item){ if(item.getAttribute('onclick')&&item.getAttribute('onclick').indexOf("'"+id+"'")!==-1) item.classList.add('active'); });
+    document.getElementById('tbTitle').textContent = pageTitles[id]||'Dashboard';
+    if(id==='billing') initBilling();
+    if(id==='bills') renderBills();
+    if(id==='dashboard') renderDashboard();
+    if(id==='orders') renderOrders();
+    if(id==='inventory') renderInventory();
+    if(id==='customers') renderCustomers();
+    if(id==='reviews') renderReviews();
+    // Close mobile sidebar
+    document.getElementById('sidebar').classList.remove('open');
+  }
+
+  function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
+  function openModal(id){ document.getElementById(id).classList.add('show'); }
+  function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+
+  // ========== DATA ==========
+  function initData() {
+    document.getElementById('tbDate').textContent = new Date().toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+    if(!db){ toast('Firebase not ready','warning'); return; }
+
+    db.ref('admin_settings').on('value',function(s){ if(s.exists()){settings=Object.assign(settings,s.val()); document.getElementById('setShop').value=settings.shop||''; document.getElementById('setPhone').value=settings.phone||''; document.getElementById('setUPI').value=settings.upi||''; document.getElementById('setGST').value=settings.gst||0;} });
+    db.ref('orders').on('value',function(s){ orders=[]; if(s.exists()) s.forEach(function(c){orders.unshift({k:c.key,v:c.val()});}); var p=orders.filter(function(o){return o.v.status!=='Delivered'&&o.v.status!=='Cancelled';}).length; var b=document.getElementById('orderBadge'); if(p>0){b.textContent=p;b.style.display='inline';}else{b.style.display='none';} renderDashboard(); renderOrders(); });
+    db.ref('medicines').on('value',function(s){ meds=[]; if(s.exists()) s.forEach(function(c){meds.push({k:c.key,v:c.val()});}); renderInventory(); renderDashboard(); });
+    db.ref('customers').on('value',function(s){ customers=[]; if(s.exists()) s.forEach(function(c){customers.push({k:c.key,v:c.val()});}); renderCustomers(); });
+    db.ref('reviews').on('value',function(s){ reviews=[]; if(s.exists()) s.forEach(function(c){reviews.push({k:c.key,v:c.val()});}); renderReviews(); });
+    db.ref('bills').on('value',function(s){ bills=[]; if(s.exists()) s.forEach(function(c){bills.unshift({k:c.key,v:c.val()});}); renderBills(); renderDashboard(); });
+  }
+
+  // ========== DASHBOARD ==========
+  function renderDashboard() {
+    var totalO=orders.length, pendO=orders.filter(function(o){var s=o.v.status;return s!=='Delivered'&&s!=='Cancelled';}).length;
+    var totalM=meds.length, low=meds.filter(function(m){return(m.v.qty||0)>0&&(m.v.qty||0)<10;}).length, out=meds.filter(function(m){return(m.v.qty||0)<=0;}).length;
+    var todayISO=new Date().toISOString().split('T')[0], todayIN=new Date().toLocaleDateString('en-IN');
+    var todayRev=0, totalRev=0;
+    bills.forEach(function(b){totalRev+=(b.v.grandTotal||0); if(b.v.date===todayISO||b.v.date===todayIN) todayRev+=(b.v.grandTotal||0);});
+
+    document.getElementById('dashStats').innerHTML =
+      statCard('📦',totalO,'Total Orders','c-indigo','i-indigo')+
+      statCard('⏳',pendO,'Pending','c-amber','i-amber')+
+      statCard('🧾',bills.length,'Bills','c-purple','i-purple')+
+      statCard('💰','₹'+todayRev.toFixed(0),'Today Rev','c-green','i-green')+
+      statCard('💊',totalM,'Medicines','c-blue','i-blue')+
+      statCard('⚠️',low,'Low Stock','c-amber','i-amber')+
+      statCard('🚫',out,'Out of Stock','c-red','i-red')+
+      statCard('💵','₹'+totalRev.toFixed(0),'Total Rev','c-green','i-green');
+
+    var tbl=document.getElementById('dashOrdersTbl');
+    if(!orders.length){tbl.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">📦</div><div class="empty-text">No orders yet</div></div></td></tr>';return;}
+    tbl.innerHTML=orders.slice(0,5).map(function(o){var s=o.v.status||'Order Placed';return '<tr><td style="font-family:monospace;font-weight:700;font-size:11px">#'+o.k.slice(-6).toUpperCase()+'</td><td style="font-weight:700">'+(o.v.name||'—')+'</td><td>'+(o.v.mobile||'—')+'</td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(o.v.medicines||'—')+'</td><td>'+statusBadge(s)+'</td><td style="font-size:11px">'+(o.v.date||'—')+'</td><td><button class="btn btn-secondary" style="font-size:10px;padding:4px 10px" onclick="ADMIN.openStatusModal(\''+o.k+'\',\''+s+'\')">✏️</button></td></tr>';}).join('');
+  }
+
+  function statCard(icon,val,label,cc,ic){return '<div class="stat-card '+cc+'"><div class="sc-top"><div class="sc-icon '+ic+'">'+icon+'</div></div><div class="sc-val">'+val+'</div><div class="sc-label">'+label+'</div></div>';}
+  function statusBadge(s){var c=s==='Delivered'?'badge-green':s==='Cancelled'?'badge-red':s==='Confirmed'?'badge-blue':'badge-amber';return '<span class="badge '+c+'">'+s+'</span>';}
+
+  // ========== ORDERS ==========
+  function renderOrders(f) {
+    var list=orders;
+    if(f){var fl=f.toLowerCase();list=orders.filter(function(o){return((o.v.name||'')+(o.v.mobile||'')+(o.v.medicines||'')+(o.v.status||'')).toLowerCase().indexOf(fl)!==-1;});}
+    var p=orders.filter(function(o){return o.v.status==='Order Placed';}).length, c=orders.filter(function(o){return o.v.status==='Confirmed';}).length, d=orders.filter(function(o){return o.v.status==='Delivered';}).length, x=orders.filter(function(o){return o.v.status==='Cancelled';}).length;
+    document.getElementById('orderStats').innerHTML=statCard('📋',p,'Placed','c-amber','i-amber')+statCard('✅',c,'Confirmed','c-blue','i-blue')+statCard('🎉',d,'Delivered','c-green','i-green')+statCard('❌',x,'Cancelled','c-red','i-red');
+    var tbl=document.getElementById('ordersTbl');
+    if(!list.length){tbl.innerHTML='<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">📦</div><div class="empty-text">No orders</div></div></td></tr>';return;}
+    tbl.innerHTML=list.map(function(o){var s=o.v.status||'Order Placed';return '<tr><td style="font-family:monospace;font-weight:700;font-size:11px">#'+o.k.slice(-6).toUpperCase()+'</td><td style="font-weight:700">'+(o.v.name||'—')+'</td><td>'+(o.v.mobile||'—')+'</td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(o.v.medicines||'').replace(/"/g,'&quot;')+'">'+(o.v.medicines||'—')+'</td><td>'+statusBadge(s)+'</td><td style="font-size:11px">'+(o.v.delivery||'—')+'</td><td style="font-size:11px">'+(o.v.payment||'—')+'</td><td style="font-size:11px">'+(o.v.date||'—')+'</td><td style="white-space:nowrap"><button class="btn btn-secondary" style="font-size:10px;padding:4px 8px" onclick="ADMIN.openStatusModal(\''+o.k+'\',\''+s+'\')">✏️</button> <button class="btn btn-danger" style="font-size:10px;padding:4px 8px" onclick="ADMIN.deleteOrder(\''+o.k+'\')">🗑️</button></td></tr>';}).join('');
+  }
+  function filterOrders(q){renderOrders(q);}
+  function openStatusModal(k,s){document.getElementById('msOid').value='#'+k.slice(-6).toUpperCase();document.getElementById('msOid').dataset.key=k;document.getElementById('msStatus').value=s;openModal('modalStatus');}
+  function updateOrderStatus(){var k=document.getElementById('msOid').dataset.key,s=document.getElementById('msStatus').value;if(!k||!db)return;db.ref('orders/'+k).update({status:s}).then(function(){toast('Status: '+s);closeModal('modalStatus');}).catch(function(){toast('Update failed','error');});}
+  function deleteOrder(k){if(!confirm('Delete this order?'))return;if(db)db.ref('orders/'+k).remove().then(function(){toast('Order deleted');}).catch(function(){toast('Failed','error');});}
+
+  // ========== INVENTORY ==========
+  function renderInventory(f) {
+    var list=meds;
+    if(f){var fl=f.toLowerCase();list=meds.filter(function(m){return((m.v.name||'')+(m.v.brand||'')+(m.v.cat||'')).toLowerCase().indexOf(fl)!==-1;});}
+    var t=meds.length,ins=meds.filter(function(m){return(m.v.qty||0)>0;}).length,lo=meds.filter(function(m){return(m.v.qty||0)>0&&(m.v.qty||0)<10;}).length,ou=meds.filter(function(m){return(m.v.qty||0)<=0;}).length;
+    document.getElementById('invStats').innerHTML=statCard('💊',t,'Total','c-indigo','i-indigo')+statCard('✅',ins,'In Stock','c-green','i-green')+statCard('⚠️',lo,'Low','c-amber','i-amber')+statCard('🚫',ou,'Out','c-red','i-red');
+    var tbl=document.getElementById('invTbl');
+    if(!list.length){tbl.innerHTML='<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">💊</div><div class="empty-title">No medicines</div><div class="empty-text">Add your first medicine</div></div></td></tr>';return;}
+    tbl.innerHTML=list.map(function(m){var q=m.v.qty||0;var bc=q<=0?'badge-red':q<10?'badge-amber':'badge-green';var bl=q<=0?'Out':q<10?'Low ('+q+')':'✓ '+q;return '<tr><td style="font-weight:700">'+(m.v.name||'—')+'</td><td style="font-size:11px">'+(m.v.cat||'—')+'</td><td style="font-size:11px">'+(m.v.brand||'—')+'</td><td style="font-weight:700">₹'+(m.v.price||0)+'</td><td><span class="badge '+bc+'">'+bl+'</span></td><td style="font-size:11px">'+(m.v.unit||'—')+'</td><td><span class="badge '+(m.v.rx==='Yes'?'badge-blue':'badge-gray')+'">'+(m.v.rx==='Yes'?'Rx':'OTC')+'</span></td><td style="white-space:nowrap"><button class="btn btn-secondary" style="font-size:10px;padding:4px 8px" onclick="ADMIN.openEditMed(\''+m.k+'\')">✏️</button> <button class="btn btn-danger" style="font-size:10px;padding:4px 8px" onclick="ADMIN.deleteMed(\''+m.k+'\')">🗑️</button></td></tr>';}).join('');
+  }
+  function filterInv(q){renderInventory(q);}
+  function openAddMed(){document.getElementById('medModalTitle').textContent='💊 Add Medicine';document.getElementById('medKey').value='';['medName','medBrand','medPrice','medQty','medUnit'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('medCat').value='Medicines';document.getElementById('medRx').value='No';openModal('modalMed');}
+  function openEditMed(k){var m=meds.find(function(x){return x.k===k;});if(!m)return;document.getElementById('medModalTitle').textContent='✏️ Edit Medicine';document.getElementById('medKey').value=k;document.getElementById('medName').value=m.v.name||'';document.getElementById('medBrand').value=m.v.brand||'';document.getElementById('medCat').value=m.v.cat||'Medicines';document.getElementById('medPrice').value=m.v.price||'';document.getElementById('medQty').value=m.v.qty||'';document.getElementById('medUnit').value=m.v.unit||'';document.getElementById('medRx').value=m.v.rx||'No';openModal('modalMed');}
+  function saveMed(){var k=document.getElementById('medKey').value,n=document.getElementById('medName').value.trim(),p=parseFloat(document.getElementById('medPrice').value)||0,q=parseInt(document.getElementById('medQty').value)||0;if(!n){toast('Enter medicine name','error');return;}if(!db){toast('Firebase error','error');return;}var d={name:n,brand:document.getElementById('medBrand').value.trim(),cat:document.getElementById('medCat').value,price:p,qty:q,unit:document.getElementById('medUnit').value.trim(),rx:document.getElementById('medRx').value};(k?db.ref('medicines/'+k).update(d):db.ref('medicines').push(d)).then(function(){toast('Medicine saved!');closeModal('modalMed');}).catch(function(){toast('Save failed','error');});}
+  function deleteMed(k){if(!confirm('Delete medicine?'))return;if(db)db.ref('medicines/'+k).remove().then(function(){toast('Deleted');}).catch(function(){toast('Failed','error');});}
+
+  // ========== CUSTOMERS ==========
+  function renderCustomers(f){var list=customers;if(f){var fl=f.toLowerCase();list=customers.filter(function(c){return((c.v.phone||'')+(c.k||'')).toLowerCase().indexOf(fl)!==-1;});}var tbl=document.getElementById('custTbl');if(!list.length){tbl.innerHTML='<tr><td colspan="3"><div class="empty-state"><div class="empty-icon">👥</div><div class="empty-text">No customers</div></div></td></tr>';return;}tbl.innerHTML=list.map(function(c){var oc=orders.filter(function(o){return o.v.mobile===c.v.phone;}).length;return '<tr><td style="font-weight:700">+91 '+(c.v.phone||c.k)+'</td><td style="font-size:11px">'+(c.v.lastLogin||'—')+'</td><td><span class="badge badge-blue">'+oc+' orders</span></td></tr>';}).join('');}
+  function filterCust(q){renderCustomers(q);}
+
+  // ========== REVIEWS ==========
+  function renderReviews(){var tbl=document.getElementById('revTbl');if(!reviews.length){tbl.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">⭐</div><div class="empty-text">No reviews</div></div></td></tr>';return;}tbl.innerHTML=reviews.map(function(r){var st='★'.repeat(r.v.stars||5)+'☆'.repeat(5-(r.v.stars||5));return '<tr><td style="font-weight:700">'+(r.v.name||'—')+'</td><td style="font-size:11px">'+(r.v.loc||'—')+'</td><td style="color:#f59e0b;letter-spacing:1px">'+st+'</td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(r.v.text||'—')+'</td><td style="font-size:11px">'+(r.v.date||'—')+'</td><td><button class="btn btn-danger" style="font-size:10px;padding:4px 8px" onclick="ADMIN.deleteReview(\''+r.k+'\')">🗑️</button></td></tr>';}).join('');}
+  function deleteReview(k){if(!confirm('Delete review?'))return;if(db)db.ref('reviews/'+k).remove().then(function(){toast('Deleted');}).catch(function(){toast('Failed','error');});}
+
+  // ========== SETTINGS ==========
+  function saveSettings(){var d={shop:document.getElementById('setShop').value.trim()||'Singh Medicals',phone:document.getElementById('setPhone').value.trim()||'7479551525',upi:document.getElementById('setUPI').value.trim()||'7479551525@ybl',gst:parseFloat(document.getElementById('setGST').value)||0};settings=d;if(db)db.ref('admin_settings').set(d).then(function(){toast('Settings saved!');}).catch(function(){toast('Failed','error');});else toast('Saved locally');}
+
+  // ========== BILLING ==========
+  function initBilling(){
+    billItems=[];selectedMedKey=null;
+    ['bName','bMobile','bAddress','bMedName','bMedPrice','bMedUnit','bPayRef'].forEach(function(id){document.getElementById(id).value='';});
+    document.getElementById('bDate').value=new Date().toISOString().split('T')[0];
+    document.getElementById('bMedQty').value='1';
+    document.getElementById('bPayMode').value='Cash';
+    document.getElementById('discType').value='percent';
+    document.getElementById('discValue').value='';
+    generateBillNo();renderBillItems();calcBill();
+  }
+
+  function generateBillNo(){var d=new Date();billCounter++;var n='SM'+String(d.getFullYear()).slice(2)+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0')+String(billCounter).padStart(3,'0');document.getElementById('billNo').textContent=n;return n;}
+
+  function onMedSearch(q){
+    var sg=document.getElementById('medSuggest');
+    if(!q||q.trim().length<1){sg.classList.remove('open');return;}
+    var ql=q.toLowerCase();
+    var found=meds.filter(function(m){return((m.v.name||'').toLowerCase().indexOf(ql)!==-1||(m.v.brand||'').toLowerCase().indexOf(ql)!==-1);});
+    if(!found.length){sg.innerHTML='<div class="suggest-item" style="color:var(--muted)">Not found — enter price manually</div>';sg.classList.add('open');selectedMedKey=null;return;}
+    sg.innerHTML=found.slice(0,8).map(function(m){var q=m.v.qty||0;var st=q<=0?'<span style="color:#ef4444">Out</span>':q<10?'<span style="color:#f59e0b">Low:'+q+'</span>':'<span style="color:#059669">'+q+'</span>';return '<div class="suggest-item" onclick="ADMIN.pickBillMed(\''+m.k+'\')"><div><strong>'+(m.v.name||'')+'</strong> <span class="suggest-stock">'+(m.v.brand||'')+'</span></div><div style="text-align:right"><span class="suggest-price">₹'+(m.v.price||0)+'</span><br>'+st+'</div></div>';}).join('');
+    sg.classList.add('open');
+  }
+
+  function pickBillMed(k){var m=meds.find(function(x){return x.k===k;});if(!m)return;selectedMedKey=k;document.getElementById('bMedName').value=m.v.name||'';document.getElementById('bMedPrice').value=m.v.price||'';document.getElementById('bMedUnit').value=m.v.unit||'strip';document.getElementById('bMedQty').value='1';document.getElementById('medSuggest').classList.remove('open');document.getElementById('bMedQty').focus();}
+
+  function addBillItem(){
+    var name=document.getElementById('bMedName').value.trim(),qty=parseInt(document.getElementById('bMedQty').value)||0,price=parseFloat(document.getElementById('bMedPrice').value)||0,unit=document.getElementById('bMedUnit').value.trim()||'unit';
+    if(!name){toast('Enter medicine name','error');return;}
+    if(qty<=0){toast('Enter quantity','error');return;}
+    if(price<=0){toast('Enter price','error');return;}
+    if(selectedMedKey){var med=meds.find(function(m){return m.k===selectedMedKey;});if(med){var already=0;billItems.forEach(function(it){if(it.medKey===selectedMedKey)already+=it.qty;});var avail=(med.v.qty||0)-already;if(qty>avail){toast('Only '+avail+' in stock!','error');return;}}}
+    billItems.push({medKey:selectedMedKey,name:name,qty:qty,price:price,unit:unit,amount:qty*price});
+    document.getElementById('bMedName').value='';document.getElementById('bMedQty').value='1';document.getElementById('bMedPrice').value='';document.getElementById('bMedUnit').value='';selectedMedKey=null;
+    renderBillItems();calcBill();document.getElementById('bMedName').focus();toast(name+' added');
+  }
+
+  function removeBillItem(i){billItems.splice(i,1);renderBillItems();calcBill();}
+
+  function renderBillItems(){var tbl=document.getElementById('billItemsTbl');document.getElementById('billItemCount').textContent=billItems.length;if(!billItems.length){tbl.innerHTML='<tr><td colspan="7"><div class="items-empty">📋 Search & add medicines above</div></td></tr>';return;}tbl.innerHTML=billItems.map(function(it,i){return '<tr><td style="color:var(--muted);font-weight:700">'+(i+1)+'</td><td style="font-weight:700">'+it.name+'</td><td style="font-size:11px">'+it.unit+'</td><td>'+it.qty+'</td><td>₹'+it.price.toFixed(2)+'</td><td style="font-weight:700;color:var(--pd)">₹'+it.amount.toFixed(2)+'</td><td><button class="remove-item" onclick="ADMIN.removeBillItem('+i+')">✕</button></td></tr>';}).join('');}
+
+  function calcBill(){
+    var sub=0;billItems.forEach(function(it){sub+=it.amount;});
+    var dt=document.getElementById('discType').value,dv=parseFloat(document.getElementById('discValue').value)||0,da=0,dp=document.getElementById('discPreview');
+    if(dv>0){if(dt==='percent'){da=sub*(dv/100);dp.textContent=dv+'% = ₹'+da.toFixed(2)+' off';}else{da=dv;dp.textContent='₹'+da.toFixed(2)+' flat off';}if(da>sub){da=sub;dp.textContent+=' (max)';}document.getElementById('bsDiscRow').style.display='flex';document.getElementById('bsDiscAmt').textContent='-₹'+da.toFixed(2);}else{dp.textContent='No discount';document.getElementById('bsDiscRow').style.display='none';}
+    var gr=settings.gst||0,taxable=sub-da,tax=taxable*(gr/100),grand=taxable+tax;
+    document.getElementById('bsSubtotal').textContent='₹'+sub.toFixed(2);
+    document.getElementById('bsTax').textContent=gr>0?'₹'+tax.toFixed(2)+' ('+gr+'%)':'₹0.00';
+    document.getElementById('bsGrandTotal').textContent='₹'+grand.toFixed(2);
+    document.getElementById('bsSummSub').textContent=billItems.length+' items · ₹'+grand.toFixed(2);
+    return {subtotal:sub,discAmt:da,discType:dt,discVal:dv,tax:tax,gstRate:gr,grand:grand};
+  }
+
+  function saveBill(andPrint){
+    var name=document.getElementById('bName').value.trim(),mobile=document.getElementById('bMobile').value.replace(/\D/g,'').trim(),address=document.getElementById('bAddress').value.trim(),date=document.getElementById('bDate').value,payMode=document.getElementById('bPayMode').value,payRef=document.getElementById('bPayRef').value.trim(),billNo=document.getElementById('billNo').textContent;
+    if(!name){toast('Enter patient name','error');return;}
+    if(mobile.length!==10){toast('Enter valid 10-digit mobile','error');return;}
+    if(!billItems.length){toast('Add at least 1 item','error');return;}
+    if(!db){toast('Firebase error','error');return;}
+    var totals=calcBill();
+    var data={billNo:billNo,patientName:name,mobile:mobile,address:address,date:date||new Date().toISOString().split('T')[0],time:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),items:billItems.map(function(it){return{medKey:it.medKey,name:it.name,qty:it.qty,price:it.price,unit:it.unit,amount:it.amount};}),subtotal:totals.subtotal,discountType:totals.discType,discountValue:totals.discVal,discountAmount:totals.discAmt,gstRate:totals.gstRate,tax:totals.tax,grandTotal:totals.grand,paymentMode:payMode,paymentRef:payRef,timestamp:new Date().toISOString(),itemCount:billItems.length,createdBy:currentUser?currentUser.email:''};
+
+    db.ref('bills').push(data).then(function(ref){
+      currentBillKey=ref.key;
+      var updates={};
+      billItems.forEach(function(it){if(it.medKey){var med=meds.find(function(m){return m.k===it.medKey;});if(med){updates['medicines/'+it.medKey+'/qty']=Math.max(0,(med.v.qty||0)-it.qty);}updates['inventory_log/'+db.ref('inventory_log').push().key]={type:'sale',billNo:billNo,medKey:it.medKey,medName:it.name,qtySold:it.qty,price:it.price,timestamp:new Date().toISOString(),billKey:currentBillKey};}});
+      if(Object.keys(updates).length>0){
+        db.ref().update(updates).then(function(){toast('Bill saved & inventory updated!');if(andPrint)printBill(data);initBilling();}).catch(function(){toast('Bill saved, inventory update failed','warning');if(andPrint)printBill(data);initBilling();});
+      }else{toast('Bill saved!');if(andPrint)printBill(data);initBilling();}
+    }).catch(function(){toast('Bill save failed','error');});
+  }
+
+  function resetBill(){if(billItems.length>0&&!confirm('Clear entire bill?'))return;initBilling();toast('Bill cleared');}
+
+  // ========== PRINT ==========
+  function printBill(d){
+    var items=d.items.map(function(it,i){return '<tr><td>'+(i+1)+'</td><td>'+it.name+'</td><td>'+it.qty+' '+it.unit+'</td><td>₹'+it.price.toFixed(2)+'</td><td>₹'+it.amount.toFixed(2)+'</td></tr>';}).join('');
+    var disc=d.discountAmount>0?'<div class="pb-total-row"><span>Discount'+(d.discountType==='percent'?' ('+d.discountValue+'%)':'')+':</span><span>-₹'+d.discountAmount.toFixed(2)+'</span></div>':'';
+    var tax=d.tax>0?'<div class="pb-total-row"><span>GST ('+d.gstRate+'%):</span><span>₹'+d.tax.toFixed(2)+'</span></div>':'';
+    var html='<div class="print-bill"><div class="pb-header"><div class="pb-shop">'+(settings.shop||'Singh Medicals')+'</div><div class="pb-addr">Batto More, Petrol Pump ke Bagal, Kandi, Garhwa - 822120</div><div class="pb-phone">📞 '+(settings.phone||'7479551525')+' · 💳 '+(settings.upi||'7479551525@ybl')+'</div></div><hr class="pb-divider"><div class="pb-info"><strong>Bill #:</strong> '+d.billNo+'</div><div class="pb-info"><strong>Date:</strong> '+d.date+' '+d.time+'</div><div class="pb-info"><strong>Patient:</strong> '+d.patientName+'</div><div class="pb-info"><strong>Mobile:</strong> '+d.mobile+'</div>'+(d.address?'<div class="pb-info"><strong>Address:</strong> '+d.address+'</div>':'')+'<hr class="pb-divider"><table class="pb-items"><thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Price</th><th>Amt</th></tr></thead><tbody>'+items+'</tbody></table><div class="pb-totals"><div class="pb-total-row"><span>Subtotal:</span><span>₹'+d.subtotal.toFixed(2)+'</span></div>'+disc+tax+'<div class="pb-total-row grand"><span>Total:</span><span>₹'+d.grandTotal.toFixed(2)+'</span></div><div class="pb-total-row"><span>Payment:</span><span>'+d.paymentMode+(d.paymentRef?' ('+d.paymentRef+')':'')+'</span></div></div><div class="pb-footer"><strong>Thank You! 🙏</strong><br>© '+(settings.shop||'Singh Medicals')+' — Kandi, Garhwa</div></div>';
+    var pa=document.getElementById('printArea');pa.innerHTML=html;pa.style.display='block';
+    setTimeout(function(){window.print();setTimeout(function(){pa.style.display='none';},1000);},300);
+  }
+
+  // ========== BILLS HISTORY ==========
+  function renderBills(f){
+    var list=bills;if(f){var fl=f.toLowerCase();list=bills.filter(function(b){return((b.v.billNo||'')+(b.v.patientName||'')+(b.v.mobile||'')).toLowerCase().indexOf(fl)!==-1;});}
+    var todayISO=new Date().toISOString().split('T')[0],todayIN=new Date().toLocaleDateString('en-IN'),tc=0,tr2=0,trev=0,tdisc=0;
+    bills.forEach(function(b){trev+=(b.v.grandTotal||0);tdisc+=(b.v.discountAmount||0);if(b.v.date===todayISO||b.v.date===todayIN){tc++;tr2+=(b.v.grandTotal||0);}});
+    document.getElementById('billsStats').innerHTML=statCard('🧾',bills.length,'Total Bills','c-purple','i-purple')+statCard('📅',tc,'Today','c-green','i-green')+statCard('💰','₹'+tr2.toFixed(0),'Today Rev','c-blue','i-blue')+statCard('💵','₹'+trev.toFixed(0),'Total Rev','c-green','i-green')+statCard('🏷️','₹'+tdisc.toFixed(0),'Discounts','c-amber','i-amber');
+    var tbl=document.getElementById('billsTbl');
+    if(!list.length){tbl.innerHTML='<tr><td colspan="10"><div class="empty-state"><div class="empty-icon">🧾</div><div class="empty-title">No bills yet</div><div class="empty-text">Create your first bill</div></div></td></tr>';return;}
+    tbl.innerHTML=list.map(function(b){var pm=b.v.paymentMode||'Cash';var pmc=pm.indexOf('UPI')!==-1?'badge-purple':pm==='Credit'?'badge-amber':'badge-green';var disc=b.v.discountAmount>0?'<span class="badge badge-purple">-₹'+(b.v.discountAmount||0).toFixed(0)+'</span>':'<span style="color:var(--muted);font-size:11px">—</span>';return '<tr><td style="font-family:monospace;font-weight:700;font-size:11px">'+(b.v.billNo||'—')+'</td><td style="font-weight:700">'+(b.v.patientName||'—')+'</td><td>'+(b.v.mobile||'—')+'</td><td><span class="badge badge-blue">'+(b.v.itemCount||0)+'</span></td><td>₹'+(b.v.subtotal||0).toFixed(2)+'</td><td>'+disc+'</td><td style="font-weight:800;color:var(--pd)">₹'+(b.v.grandTotal||0).toFixed(2)+'</td><td><span class="badge '+pmc+'">'+pm+'</span></td><td style="font-size:11px">'+(b.v.date||'—')+'</td><td style="white-space:nowrap"><button class="btn btn-secondary" style="font-size:10px;padding:4px 8px" onclick="ADMIN.viewBill(\''+b.k+'\')">👁️</button> <button class="btn btn-secondary" style="font-size:10px;padding:4px 8px" onclick="ADMIN.printBillByKey(\''+b.k+'\')">🖨️</button> <button class="btn btn-danger" style="font-size:10px;padding:4px 8px" onclick="ADMIN.deleteBill(\''+b.k+'\')">🗑️</button></td></tr>';}).join('');
+  }
+  function filterBills(q){renderBills(q);}
+
+  function viewBill(k){
+    var b=bills.find(function(x){return x.k===k;});if(!b)return;currentBillKey=k;var d=b.v;
+    var items=(d.items||[]).map(function(it,i){return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:13px"><span>'+(i+1)+'. <strong>'+it.name+'</strong> × '+it.qty+' '+it.unit+'</span><span style="font-weight:700">₹'+it.amount.toFixed(2)+'</span></div>';}).join('');
+    var disc=d.discountAmount>0?'<div style="display:flex;justify-content:space-between;padding:6px 0;color:#7c3aed;font-size:13px"><span>🏷️ Discount'+(d.discountType==='percent'?' ('+d.discountValue+'%)':'')+'</span><span style="font-weight:700">-₹'+d.discountAmount.toFixed(2)+'</span></div>':'';
+    var tax=d.tax>0?'<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>GST ('+d.gstRate+'%)</span><span>₹'+d.tax.toFixed(2)+'</span></div>':'';
+    document.getElementById('billDetailBody').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px"><div><div style="font-size:11px;color:var(--muted);font-weight:700">BILL #</div><div style="font-family:monospace;font-weight:800;font-size:16px">'+(d.billNo||'—')+'</div></div><div><div style="font-size:11px;color:var(--muted);font-weight:700">DATE</div><div style="font-weight:700">'+(d.date||'—')+' '+(d.time||'')+'</div></div><div><div style="font-size:11px;color:var(--muted);font-weight:700">PATIENT</div><div style="font-weight:700">'+(d.patientName||'—')+'</div></div><div><div style="font-size:11px;color:var(--muted);font-weight:700">MOBILE</div><div style="font-weight:700">'+(d.mobile||'—')+'</div></div></div><div style="font-family:Poppins,sans-serif;font-size:14px;font-weight:700;margin-bottom:8px">Items ('+(d.itemCount||0)+')</div><div style="background:var(--bg);border-radius:10px;padding:12px;border:1px solid var(--border)">'+items+'</div><div style="margin-top:14px;background:#f0fdf4;border-radius:10px;padding:14px;border:1px solid #bbf7d0"><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Subtotal</span><span>₹'+(d.subtotal||0).toFixed(2)+'</span></div>'+disc+tax+'<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-family:Poppins,sans-serif;font-size:20px;font-weight:800;color:var(--pd);border-top:2px solid var(--p);margin-top:6px"><span>Total</span><span>₹'+(d.grandTotal||0).toFixed(2)+'</span></div><div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px"><span>Payment</span><span style="font-weight:700">'+(d.paymentMode||'Cash')+(d.paymentRef?' ('+d.paymentRef+')':'')+'</span></div></div>';
+    openModal('modalBillDetail');
+  }
+  function printBillByKey(k){var b=bills.find(function(x){return x.k===k;});if(!b)return;currentBillKey=k;printBill(b.v);}
+  function reprintBill(){if(currentBillKey)printBillByKey(currentBillKey);}
+  function deleteBill(k){if(!confirm('Delete bill? Inventory will NOT be restored.'))return;if(db)db.ref('bills/'+k).remove().then(function(){toast('Bill deleted');closeModal('modalBillDetail');}).catch(function(){toast('Failed','error');});}
+
+  // ========== EVENT LISTENERS ==========
+  document.addEventListener('click',function(e){
+    var sg=document.getElementById('medSuggest');if(sg&&!e.target.closest('#bMedName')&&!e.target.closest('#medSuggest'))sg.classList.remove('open');
+    if(e.target.classList.contains('modal-overlay'))e.target.classList.remove('show');
+  });
+
+  // Keyboard shortcuts for billing
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){
+      if(document.activeElement&&document.activeElement.id==='loginPass')doLogin();
+      if(document.activeElement&&document.activeElement.id==='regPass2')doRegister();
+    }
+  });
+
+  // ========== INIT ==========
+  function init(){
+    if(auth){
+      auth.onAuthStateChanged(function(user){ onAuthReady(user); });
+    } else {
+      toast('Firebase Auth not loaded','error');
+    }
+    document.getElementById('bDate').value=new Date().toISOString().split('T')[0];
+  }
+
+  return {
+    init:init,doLogin:doLogin,doRegister:doRegister,doForgot:doForgot,doLogout:doLogout,
+    showLogin:showLogin,showRegister:showRegister,showForgot:showForgot,togglePass:togglePass,
+    goPage:goPage,toggleSidebar:toggleSidebar,openModal:openModal,closeModal:closeModal,
+    filterOrders:filterOrders,openStatusModal:openStatusModal,updateOrderStatus:updateOrderStatus,deleteOrder:deleteOrder,
+    filterInv:filterInv,openAddMed:openAddMed,openEditMed:openEditMed,saveMed:saveMed,deleteMed:deleteMed,
+    filterCust:filterCust,deleteReview:deleteReview,saveSettings:saveSettings,
+    onMedSearch:onMedSearch,pickBillMed:pickBillMed,addBillItem:addBillItem,removeBillItem:removeBillItem,
+    calcBill:calcBill,saveBill:saveBill,resetBill:resetBill,
+    filterBills:filterBills,viewBill:viewBill,printBillByKey:printBillByKey,reprintBill:reprintBill,deleteBill:deleteBill
+  };
+})();
+
+document.addEventListener('DOMContentLoaded',function(){ADMIN.init();});
+</script>
+</body>
+</html>
