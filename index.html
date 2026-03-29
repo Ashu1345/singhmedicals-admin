@@ -26,6 +26,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}
 ::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
 #toastBox{position:fixed;top:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:400px}
 .t-item{background:var(--surface);border:1px solid var(--border);padding:12px 18px;border-radius:var(--r);font-size:13px;font-weight:600;box-shadow:var(--sh3);transform:translateX(120%);transition:transform .4s var(--ease);pointer-events:auto;display:flex;align-items:center;gap:10px;min-width:260px}
 .t-item.show{transform:translateX(0)}
@@ -33,7 +34,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .t-item.t-err{border-left:4px solid var(--danger)}
 .t-item.t-warn{border-left:4px solid var(--warn)}
 .t-item .t-close{background:none;border:none;color:var(--subtle);cursor:pointer;font-size:14px;margin-left:auto;padding:2px 4px}
-@media print{body>*{display:none!important}#printZone{display:block!important}#printZone,#printZone *{visibility:visible}#printZone{position:fixed;left:0;top:0;width:100%;padding:20px;background:#fff;z-index:999999}}
+
+@media print{
+body>*{display:none!important}
+#printZone{display:block!important}
+#printZone,#printZone *{visibility:visible}
+#printZone{position:fixed;left:0;top:0;width:100%;padding:20px;background:#fff;z-index:999999}
+}
+
 .auth-wrap{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
 .auth-wrap.gone{opacity:0;visibility:hidden;pointer-events:none}
 .auth-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);overflow:hidden}
@@ -71,6 +79,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .a-hint{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px;font-size:12px;color:#166534;font-weight:600;line-height:1.6;margin-top:10px}
 .a-switch{width:100%;padding:11px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;background:var(--surface);border:1.5px solid var(--border);color:var(--text);transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
 .a-switch:hover{background:var(--bg);border-color:var(--border2)}
+
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--surface);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s var(--ease)}
 .sb-brand{padding:20px 22px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--border)}
 .sb-logo{width:38px;height:38px;background:linear-gradient(135deg,var(--p),var(--pd));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:0 2px 8px rgba(99,102,241,.2)}
@@ -91,6 +100,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .sb-uname{font-size:12px;font-weight:700}
 .sb-uemail{font-size:10px;color:var(--subtle);font-weight:500;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mob-toggle{display:none;position:fixed;top:16px;left:14px;z-index:101;width:38px;height:38px;border-radius:9px;background:var(--surface);border:1px solid var(--border);cursor:pointer;align-items:center;justify-content:center;font-size:17px;box-shadow:var(--sh)}
+
 .main{margin-left:260px;min-height:100vh;transition:margin .3s}
 .topbar{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .tb-crumb{font-size:12px;color:var(--subtle);font-weight:600}
@@ -107,6 +117,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .content{padding:24px 28px}
 .page{display:none;animation:pgIn .25s ease}.page.on{display:block}
 @keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
 .scard{background:var(--surface);border-radius:var(--r2);padding:20px;border:1px solid var(--border);box-shadow:var(--sh);position:relative;overflow:hidden;transition:all .2s}
 .scard:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
@@ -120,6 +131,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .sc-num{font-family:'Poppins',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
 .sc-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-top:4px}
 .sc-ic{font-size:18px;margin-bottom:6px}
+
 .card{background:var(--surface);border-radius:var(--r2);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
 .card-h{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
 .card-t{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px}
@@ -137,6 +149,7 @@ tr:hover td{background:#fafbfc}
 .empty-ic{font-size:44px;margin-bottom:10px;opacity:.5}
 .empty-t{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
 .empty-s{font-size:12px;color:var(--muted)}
+
 .mdl{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:36px 16px;overflow-y:auto}
 .mdl.on{display:flex}
 .mdl-box{background:var(--surface);border-radius:var(--r3);width:100%;max-width:620px;box-shadow:var(--sh4);margin:auto;animation:mdlIn .2s ease}
@@ -148,10 +161,13 @@ tr:hover td{background:#fafbfc}
 .mdl-x:hover{background:#fee2e2;color:var(--danger)}
 .mdl-b{padding:22px}
 .mdl-f{padding:14px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:7px}
+
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg .full{grid-column:1/-1}
 .ff label{display:block;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .ff input,.ff select,.ff textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:12px;font-family:'Inter',sans-serif;font-weight:500;outline:none;background:var(--bg);transition:all .2s}
 .ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 3px rgba(99,102,241,.08)}
+
 .bl-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:22px;align-items:start}
 .bl-stack{display:flex;flex-direction:column;gap:18px}
 .bl-card{background:var(--surface);border-radius:var(--r2);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
@@ -172,6 +188,7 @@ tr:hover td{background:#fafbfc}
 .sug-drop.open{display:block}
 .sug-item{padding:9px 12px;cursor:pointer;font-size:11px;font-weight:600;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f8fafc;transition:background .1s}
 .sug-item:hover{background:var(--pl)}.sug-item:last-child{border-bottom:none}
+
 .bl-sum{background:var(--surface);border-radius:var(--r2);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden;position:sticky;top:76px}
 .bls-h{background:linear-gradient(135deg,var(--pd),var(--p));padding:16px 20px;color:#fff}
 .bls-h-t{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700}
@@ -190,14 +207,15 @@ tr:hover td{background:#fafbfc}
 .disc-apply{background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;border:none;padding:7px 12px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;height:34px}
 .bl-acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
 .bl-acts .btn{flex:1;justify-content:center;padding:10px 14px;font-size:12px}
+
 .stock-updating{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.85);color:#fff;padding:20px 32px;border-radius:16px;z-index:99998;font-size:14px;font-weight:700;display:none;align-items:center;gap:10px;box-shadow:var(--sh4)}
 .stock-updating.on{display:flex}
 .stock-updating .spin2{width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite}
+
 .pr-bill{font-family:'Inter',sans-serif;max-width:380px;margin:0 auto;padding:20px;background:#fff}
 .pr-head{text-align:center;border-bottom:2px dashed #333;padding-bottom:12px;margin-bottom:12px}
 .pr-shop{font-family:'Poppins',sans-serif;font-size:18px;font-weight:800}
-.pr-addr{font-size:10px;color:#666;margin-top:3px}
-.pr-phone{font-size:11px;font-weight:700;margin-top:2px}
+.pr-addr{font-size:10px;color:#666;margin-top:3px}.pr-phone{font-size:11px;font-weight:700;margin-top:2px}
 .pr-div{border:none;border-top:1px dashed #ccc;margin:10px 0}
 .pr-info{font-size:11px;margin-bottom:2px}.pr-info strong{font-weight:800}
 .pr-items{width:100%;border-collapse:collapse;margin:10px 0}
@@ -208,9 +226,10 @@ tr:hover td{background:#fafbfc}
 .pr-tr{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}
 .pr-tr.grand{font-size:16px;font-weight:900;border-top:1px solid #333;padding-top:6px;margin-top:4px}
 .pr-foot{text-align:center;border-top:2px dashed #333;padding-top:10px;margin-top:12px;font-size:10px;color:#666}
+
 .live-dot{width:8px;height:8px;background:#10b981;border-radius:50%;display:inline-block;margin-right:4px;animation:livePulse 2s ease-in-out infinite}
 @keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
-.bill-counter{background:linear-gradient(135deg,var(--pd),var(--purple));color:#fff;padding:4px 12px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:800;letter-spacing:.5px}
+
 @media(max-width:900px){
 .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
 .mob-toggle{display:flex}.main{margin-left:0}
@@ -223,14 +242,14 @@ tr:hover td{background:#fafbfc}
 </style>
 </head>
 <body>
-<div id="toastBox"></div>
-<div class="stock-updating" id="stockLoader"><div class="spin2"></div> Saving bill...</div>
 
-<!-- AUTH -->
+<div id="toastBox"></div>
+<div class="stock-updating" id="stockLoader"><div class="spin2"></div> Updating stock...</div>
+
 <div class="auth-wrap" id="authWrap">
 <div class="auth-bg"></div>
 <div class="auth-card">
-<div class="auth-brand"><div class="auth-logo">💊</div><div class="auth-h">Singh Medicals</div><div class="auth-sub">Admin Panel</div></div>
+<div class="auth-brand"><div class="auth-logo">💊</div><div class="auth-h">Singh Medicals</div><div class="auth-sub">Admin Panel · Secure Login</div></div>
 <div id="viewLogin">
 <div class="auth-form">
 <div class="a-err" id="errLogin"><span>⚠️</span><span id="errLoginMsg"></span></div>
@@ -240,8 +259,8 @@ tr:hover td{background:#fafbfc}
 <div class="a-link"><button onclick="A.showForgot()">Forgot password?</button></div>
 </div>
 <div class="a-divider"><span>or</span></div>
-<button class="a-switch" onclick="A.showReg()">📝 Create Account</button>
-<div class="a-hint">💡 Firebase → Authentication → Enable <b>Email/Password</b></div>
+<button class="a-switch" onclick="A.showReg()">📝 Create Admin Account</button>
+<div class="a-hint">💡 Firebase Console → Authentication → Sign-in method → Enable <b>Email/Password</b></div>
 </div>
 <div id="viewReg" style="display:none">
 <div class="auth-form">
@@ -249,26 +268,25 @@ tr:hover td{background:#fafbfc}
 <div class="a-field"><label>Email</label><div class="a-inp-wrap"><span class="a-ico">📧</span><input type="email" id="inpRegEmail" placeholder="email@example.com" autocomplete="email"></div></div>
 <div class="a-field"><label>Password (6+ chars)</label><div class="a-inp-wrap"><span class="a-ico">🔒</span><input type="password" id="inpRegPass" placeholder="Password" autocomplete="new-password"><button class="a-eye" type="button" onclick="A.toggleEye('inpRegPass',this)">👁️</button></div></div>
 <div class="a-field"><label>Confirm</label><div class="a-inp-wrap"><span class="a-ico">🔒</span><input type="password" id="inpRegPass2" placeholder="Repeat" autocomplete="new-password"></div></div>
-<button class="a-btn" id="btnReg" onclick="A.register()"><div class="spin"></div><span class="a-btn-txt">✅ Create</span></button>
+<button class="a-btn" id="btnReg" onclick="A.register()"><div class="spin"></div><span class="a-btn-txt">✅ Create Account</span></button>
 </div>
-<div class="a-link" style="margin-top:14px"><button onclick="A.showLogin()">← Back</button></div>
+<div class="a-link" style="margin-top:14px"><button onclick="A.showLogin()">← Back to Login</button></div>
 </div>
 <div id="viewForgot" style="display:none">
 <div class="auth-form">
 <div class="a-err" id="errForgot"><span>⚠️</span><span id="errForgotMsg"></span></div>
-<p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:14px">Reset link sent to email.</p>
+<p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:14px">Reset link will be sent to your email.</p>
 <div class="a-field"><label>Email</label><div class="a-inp-wrap"><span class="a-ico">📧</span><input type="email" id="inpForgotEmail" placeholder="email@example.com"></div></div>
-<button class="a-btn" id="btnForgot" onclick="A.forgot()"><div class="spin"></div><span class="a-btn-txt">📩 Send Reset</span></button>
+<button class="a-btn" id="btnForgot" onclick="A.forgot()"><div class="spin"></div><span class="a-btn-txt">📩 Send Reset Link</span></button>
 </div>
 <div class="a-link" style="margin-top:14px"><button onclick="A.showLogin()">← Back</button></div>
 </div>
 </div>
 </div>
 
-<!-- SIDEBAR -->
 <button class="mob-toggle no-print" onclick="A.toggleSB()">☰</button>
 <div class="sidebar no-print" id="sidebar">
-<div class="sb-brand"><div class="sb-logo">💊</div><div><div class="sb-name">Singh <span>Medicals</span></div><div class="sb-tag">Admin</div></div></div>
+<div class="sb-brand"><div class="sb-logo">💊</div><div><div class="sb-name">Singh <span>Medicals</span></div><div class="sb-tag">Admin Dashboard</div></div></div>
 <div class="sb-nav">
 <div class="sb-sec">Overview</div>
 <div class="sb-link on" data-pg="dashboard" onclick="A.go('dashboard')"><span class="sb-ico">📊</span>Dashboard</div>
@@ -286,27 +304,24 @@ tr:hover td{background:#fafbfc}
 <div class="sb-foot"><div class="sb-user"><div class="sb-ava" id="uAva">A</div><div><div class="sb-uname" id="uName">Admin</div><div class="sb-uemail" id="uEmail">—</div></div></div></div>
 </div>
 
-<!-- MAIN -->
 <div class="main no-print" id="mainBox">
 <div class="topbar"><div class="tb-crumb"><span class="live-dot"></span> Admin / <b id="pgTitle">Dashboard</b></div><div class="tb-right"><span class="tb-date" id="tbDate"></span><button class="btn btn-d" onclick="A.logout()" style="font-size:10px">🚪 Logout</button></div></div>
 <div class="content">
 
-<!-- DASHBOARD -->
 <div class="page on" id="pg-dashboard">
 <div class="stats" id="dStats"></div>
 <div class="card"><div class="card-h"><div class="card-t">📦 Recent Orders</div></div><div style="overflow-x:auto"><table><thead><tr><th>Order #</th><th>Name</th><th>Mobile</th><th>Medicines</th><th>Status</th><th>Date</th><th>Action</th></tr></thead><tbody id="dOrdTbl"><tr><td colspan="7"><div class="empty"><div class="empty-ic">⏳</div><div class="empty-s">Loading...</div></div></td></tr></tbody></table></div></div>
 </div>
 
-<!-- BILLING -->
 <div class="page" id="pg-billing">
 <div class="bl-grid">
 <div class="bl-stack">
-<div class="bl-card"><div class="bl-card-h"><div class="bl-card-t">👤 Patient</div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--muted);font-weight:700">Bill:</span><span class="bill-counter" id="billNo">---</span></div></div><div class="bl-card-b"><div class="fg"><div class="ff"><label>Name *</label><input type="text" id="bName" placeholder="Patient name"></div><div class="ff"><label>Mobile *</label><input type="tel" id="bMob" placeholder="10 digits" maxlength="10"></div><div class="ff"><label>Address</label><input type="text" id="bAddr" placeholder="Optional"></div><div class="ff"><label>Date</label><input type="date" id="bDate"></div></div></div></div>
+<div class="bl-card"><div class="bl-card-h"><div class="bl-card-t">👤 Patient</div><div style="font-size:11px;color:var(--muted);font-weight:700">Bill #: <b id="billNo" style="color:var(--pd)">---</b></div></div><div class="bl-card-b"><div class="fg"><div class="ff"><label>Name *</label><input type="text" id="bName" placeholder="Patient name"></div><div class="ff"><label>Mobile *</label><input type="tel" id="bMob" placeholder="10 digits" maxlength="10"></div><div class="ff"><label>Address</label><input type="text" id="bAddr" placeholder="Optional"></div><div class="ff"><label>Date</label><input type="date" id="bDate"></div></div></div></div>
 <div class="bl-card"><div class="bl-card-h"><div class="bl-card-t">💊 Items</div><div style="font-size:11px;color:var(--muted);font-weight:700"><span id="bItmCnt">0</span> items</div></div><div class="bl-card-b">
 <div class="itm-row"><div class="ff" style="position:relative"><label>Medicine *</label><input type="text" id="bMedNm" placeholder="Search..." autocomplete="off" oninput="A.medSrch(this.value)" onfocus="A.medSrch(this.value)"><div class="sug-drop" id="sugBox"></div></div><div class="ff"><label>Qty</label><input type="number" id="bMedQt" placeholder="1" min="1" value="1"></div><div class="ff"><label>Price ₹</label><input type="number" id="bMedPr" placeholder="0" min="0" step="0.01"></div><div class="ff"><label>Unit</label><input type="text" id="bMedUn" placeholder="strip" readonly style="background:#f1f5f9"></div><button class="add-btn" onclick="A.addItem()">+</button></div>
 <div style="overflow-x:auto"><table class="it-tbl"><thead><tr><th>#</th><th>Medicine</th><th>Unit</th><th>Qty</th><th>Price</th><th>Amount</th><th></th></tr></thead><tbody id="bItmTbl"><tr><td colspan="7"><div class="it-empty">📋 Add medicines above</div></td></tr></tbody></table></div>
 </div></div>
-<div class="bl-card"><div class="bl-card-h"><div class="bl-card-t">💳 Payment</div></div><div class="bl-card-b"><div class="fg"><div class="ff"><label>Mode</label><select id="bPay"><option value="Cash">💵 Cash</option><option value="UPI">💳 UPI</option><option value="Cash + UPI">💵💳 Cash+UPI</option><option value="Credit">📝 Credit</option></select></div><div class="ff"><label>Ref</label><input type="text" id="bRef" placeholder="UPI txn ID"></div></div></div></div>
+<div class="bl-card"><div class="bl-card-h"><div class="bl-card-t">💳 Payment</div></div><div class="bl-card-b"><div class="fg"><div class="ff"><label>Mode</label><select id="bPay"><option value="Cash">💵 Cash</option><option value="UPI">💳 UPI</option><option value="Cash + UPI">💵💳 Cash+UPI</option><option value="Credit">📝 Credit</option></select></div><div class="ff"><label>Ref / Note</label><input type="text" id="bRef" placeholder="UPI txn ID"></div></div></div></div>
 </div>
 <div><div class="bl-sum"><div class="bls-h"><div class="bls-h-t">🧾 Summary</div><div class="bls-h-s" id="blsSumSub">0 items · ₹0</div></div><div class="bls-b">
 <div class="bls-r"><span class="lbl">Subtotal</span><span class="val" id="blsSub">₹0.00</span></div>
@@ -314,32 +329,26 @@ tr:hover td{background:#fafbfc}
 <div class="bls-r"><span class="lbl">GST</span><span class="val" id="blsTax">₹0.00</span></div>
 <div class="bls-r total"><span class="lbl">Total</span><span class="val" id="blsTotal">₹0.00</span></div>
 <div class="disc-box"><div class="disc-t">🏷️ Discount</div><div class="disc-r"><div class="ff"><label>Type</label><select id="dscTyp" onchange="A.calc()"><option value="percent">%</option><option value="flat">₹ Flat</option></select></div><div class="ff"><label>Value</label><input type="number" id="dscVal" placeholder="0" min="0" step="0.01" oninput="A.calc()"></div><button class="disc-apply" onclick="A.calc()">Apply</button></div><div style="margin-top:6px;font-size:10px;color:#7c3aed;font-weight:600" id="dscPrev">No discount</div></div>
-<div class="bl-acts"><button class="btn btn-g" id="btnSaveBill" onclick="A.saveBill(false)">✅ Save</button><button class="btn btn-p" id="btnPrintBill" onclick="A.saveBill(true)">🖨️ Save & Print</button></div>
-<div style="text-align:center;margin-top:8px"><button class="btn btn-ghost" onclick="A.clearBill()" style="color:var(--danger);font-size:10px">🗑️ Clear</button></div>
+<div class="bl-acts"><button class="btn btn-g" id="btnSaveBill" onclick="A.saveBill()">✅ Save</button><button class="btn btn-p" id="btnPrintBill" onclick="A.saveBill(true)">🖨️ Save & Print</button></div>
+<div style="text-align:center;margin-top:8px"><button class="btn btn-ghost" onclick="A.clearBill()" style="color:var(--danger);font-size:10px">🗑️ Clear All</button></div>
 </div></div></div>
 </div>
 </div>
 
-<!-- BILLS -->
-<div class="page" id="pg-bills"><div class="stats" id="blStats"></div><div class="card"><div class="card-h"><div class="card-t">📄 Bills</div><div class="card-a"><input class="srch" id="blSrch" placeholder="Search..." oninput="A.fBills(this.value)"></div></div><div style="overflow-x:auto"><table><thead><tr><th>Bill #</th><th>Patient</th><th>Mobile</th><th>Items</th><th>Subtotal</th><th>Disc</th><th>Total</th><th>Pay</th><th>Date</th><th>Act</th></tr></thead><tbody id="blTbl"></tbody></table></div></div></div>
+<div class="page" id="pg-bills"><div class="stats" id="blStats"></div><div class="card"><div class="card-h"><div class="card-t">📄 Bill History</div><div class="card-a"><input class="srch" id="blSrch" placeholder="Search bills..." oninput="A.fBills(this.value)"></div></div><div style="overflow-x:auto"><table><thead><tr><th>Bill #</th><th>Patient</th><th>Mobile</th><th>Items</th><th>Subtotal</th><th>Discount</th><th>Total</th><th>Payment</th><th>Date</th><th>Actions</th></tr></thead><tbody id="blTbl"></tbody></table></div></div></div>
 
-<!-- ORDERS -->
 <div class="page" id="pg-orders"><div class="stats" id="oStats"></div><div class="card"><div class="card-h"><div class="card-t">📦 Orders</div><div class="card-a"><input class="srch" id="oSrch" placeholder="Search..." oninput="A.fOrders(this.value)"></div></div><div style="overflow-x:auto"><table><thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Medicines</th><th>Status</th><th>Delivery</th><th>Pay</th><th>Date</th><th>Act</th></tr></thead><tbody id="oTbl"></tbody></table></div></div></div>
 
-<!-- INVENTORY -->
 <div class="page" id="pg-inventory"><div class="stats" id="iStats"></div><div class="card"><div class="card-h"><div class="card-t">💊 Inventory</div><div class="card-a"><input class="srch" id="iSrch" placeholder="Search..." oninput="A.fInv(this.value)"><button class="btn btn-p" onclick="A.addMed()">+ Add</button></div></div><div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Category</th><th>Brand</th><th>Price</th><th>Stock</th><th>Unit</th><th>Rx</th><th>Act</th></tr></thead><tbody id="iTbl"></tbody></table></div></div></div>
 
-<!-- CUSTOMERS -->
 <div class="page" id="pg-customers"><div class="card"><div class="card-h"><div class="card-t">👥 Customers</div><div class="card-a"><input class="srch" id="cSrch" placeholder="Search..." oninput="A.fCust(this.value)"></div></div><div style="overflow-x:auto"><table><thead><tr><th>Phone</th><th>Last Login</th><th>Orders</th></tr></thead><tbody id="cTbl"></tbody></table></div></div></div>
 
-<!-- REVIEWS -->
 <div class="page" id="pg-reviews"><div class="card"><div class="card-h"><div class="card-t">⭐ Reviews</div></div><div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Loc</th><th>Stars</th><th>Review</th><th>Date</th><th>Del</th></tr></thead><tbody id="rTbl"></tbody></table></div></div></div>
 
-<!-- SETTINGS -->
 <div class="page" id="pg-settings"><div class="bl-card" style="max-width:480px"><div class="bl-card-h"><div class="bl-card-t">⚙️ Settings</div></div><div class="bl-card-b">
 <div class="ff" style="margin-bottom:12px"><label>Shop Name</label><input type="text" id="sShop" value="Singh Medicals"></div>
 <div class="ff" style="margin-bottom:12px"><label>Phone</label><input type="text" id="sPhone" value="7479551525"></div>
-<div class="ff" style="margin-bottom:12px"><label>UPI</label><input type="text" id="sUPI" value="7479551525@ybl"></div>
+<div class="ff" style="margin-bottom:12px"><label>UPI ID</label><input type="text" id="sUPI" value="7479551525@ybl"></div>
 <div class="ff" style="margin-bottom:12px"><label>GST %</label><input type="number" id="sGST" value="0" min="0" step="0.01"></div>
 <button class="btn btn-p" onclick="A.saveSets()">💾 Save</button>
 </div></div></div>
@@ -348,891 +357,611 @@ tr:hover td{background:#fafbfc}
 
 <div id="printZone" style="display:none"></div>
 
-<!-- MODALS -->
-<div class="mdl" id="mdlStatus"><div class="mdl-box"><div class="mdl-h"><div class="mdl-title">📦 Status</div><button class="mdl-x" onclick="A.cMdl('mdlStatus')">✕</button></div><div class="mdl-b"><div class="ff" style="margin-bottom:12px"><label>Order</label><input type="text" id="msOid" readonly style="background:var(--bg);font-weight:700"></div><div class="ff"><label>Status</label><select id="msSt"><option>Order Placed</option><option>Confirmed</option><option>Dispatched</option><option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option></select></div></div><div class="mdl-f"><button class="btn btn-s" onclick="A.cMdl('mdlStatus')">Cancel</button><button class="btn btn-p" onclick="A.updStatus()">✅ Update</button></div></div></div>
+<div class="mdl" id="mdlStatus"><div class="mdl-box"><div class="mdl-h"><div class="mdl-title">📦 Update Status</div><button class="mdl-x" onclick="A.cMdl('mdlStatus')">✕</button></div><div class="mdl-b"><div class="ff" style="margin-bottom:12px"><label>Order</label><input type="text" id="msOid" readonly style="background:var(--bg);font-weight:700"></div><div class="ff"><label>Status</label><select id="msSt"><option>Order Placed</option><option>Confirmed</option><option>Dispatched</option><option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option></select></div></div><div class="mdl-f"><button class="btn btn-s" onclick="A.cMdl('mdlStatus')">Cancel</button><button class="btn btn-p" onclick="A.updStatus()">✅ Update</button></div></div></div>
 
-<div class="mdl" id="mdlMed"><div class="mdl-box"><div class="mdl-h"><div class="mdl-title" id="mmTitle">💊 Add</div><button class="mdl-x" onclick="A.cMdl('mdlMed')">✕</button></div><div class="mdl-b"><input type="hidden" id="mmKey" value=""><div class="fg"><div class="ff"><label>Name *</label><input type="text" id="mmNm"></div><div class="ff"><label>Brand</label><input type="text" id="mmBr"></div><div class="ff"><label>Category</label><select id="mmCat"><option>Medicines</option><option>Vitamins & Supplements</option><option>Skincare</option><option>Baby Care</option><option>Ayurveda</option><option>Medical Devices</option><option>Wellness</option><option>Lab Tests</option></select></div><div class="ff"><label>Price ₹</label><input type="number" id="mmPr" min="0" step="0.01"></div><div class="ff"><label>Stock</label><input type="number" id="mmQt" min="0"></div><div class="ff"><label>Unit</label><input type="text" id="mmUn" placeholder="strip"></div><div class="ff"><label>Rx?</label><select id="mmRx"><option value="No">OTC</option><option value="Yes">Rx</option></select></div></div></div><div class="mdl-f"><button class="btn btn-s" onclick="A.cMdl('mdlMed')">Cancel</button><button class="btn btn-p" onclick="A.saveMed()">💾 Save</button></div></div></div>
+<div class="mdl" id="mdlMed"><div class="mdl-box"><div class="mdl-h"><div class="mdl-title" id="mmTitle">💊 Add Medicine</div><button class="mdl-x" onclick="A.cMdl('mdlMed')">✕</button></div><div class="mdl-b"><input type="hidden" id="mmKey" value=""><div class="fg"><div class="ff"><label>Name *</label><input type="text" id="mmNm" placeholder="Medicine name"></div><div class="ff"><label>Brand</label><input type="text" id="mmBr" placeholder="Brand"></div><div class="ff"><label>Category</label><select id="mmCat"><option>Medicines</option><option>Vitamins & Supplements</option><option>Skincare</option><option>Baby Care</option><option>Ayurveda</option><option>Medical Devices</option><option>Wellness</option><option>Lab Tests</option></select></div><div class="ff"><label>Price ₹</label><input type="number" id="mmPr" placeholder="0" min="0" step="0.01"></div><div class="ff"><label>Stock</label><input type="number" id="mmQt" placeholder="0" min="0"></div><div class="ff"><label>Unit</label><input type="text" id="mmUn" placeholder="strip / bottle"></div><div class="ff"><label>Rx?</label><select id="mmRx"><option value="No">No (OTC)</option><option value="Yes">Yes (Rx)</option></select></div></div></div><div class="mdl-f"><button class="btn btn-s" onclick="A.cMdl('mdlMed')">Cancel</button><button class="btn btn-p" onclick="A.saveMed()">💾 Save</button></div></div></div>
 
-<div class="mdl" id="mdlBill"><div class="mdl-box wide"><div class="mdl-h"><div class="mdl-title">🧾 Bill</div><button class="mdl-x" onclick="A.cMdl('mdlBill')">✕</button></div><div class="mdl-b" id="billDetBody"></div><div class="mdl-f"><button class="btn btn-p" onclick="A.rePrint()">🖨️</button><button class="btn btn-s" onclick="A.cMdl('mdlBill')">Close</button></div></div></div>
+<div class="mdl" id="mdlBill"><div class="mdl-box wide"><div class="mdl-h"><div class="mdl-title">🧾 Bill Details</div><button class="mdl-x" onclick="A.cMdl('mdlBill')">✕</button></div><div class="mdl-b" id="billDetBody"></div><div class="mdl-f"><button class="btn btn-p" onclick="A.rePrint()">🖨️ Print</button><button class="btn btn-s" onclick="A.cMdl('mdlBill')">Close</button></div></div></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
 <script>
-(function(){
-"use strict";
+var FB={apiKey:"AIzaSyDwzGgM4_XgUH1KBc7hKUe8MBa12GORixI",authDomain:"singh-medicals.firebaseapp.com",databaseURL:"https://singh-medicals-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"singh-medicals",storageBucket:"singh-medicals.firebasestorage.app",messagingSenderId:"78567933543",appId:"1:78567933543:web:f600bb9a0b799624b3b6c2"};
 
-var firebaseConfig = {
-  apiKey: "AIzaSyDwzGgM4_XgUH1KBc7hKUe8MBa12GORixI",
-  authDomain: "singh-medicals.firebaseapp.com",
-  databaseURL: "https://singh-medicals-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "singh-medicals",
-  storageBucket: "singh-medicals.firebasestorage.app",
-  messagingSenderId: "78567933543",
-  appId: "1:78567933543:web:f600bb9a0b799624b3b6c2"
-};
+var A=(function(){
+var db=null,auth=null,_bound=false;
+try{firebase.initializeApp(FB);db=firebase.database();auth=firebase.auth();}catch(e){console.error(e);}
 
-var app, db, auth;
-try {
-  app = firebase.initializeApp(firebaseConfig);
-  db = firebase.database();
-  auth = firebase.auth();
-} catch(e) {
-  console.error("Firebase init failed:", e);
+// === STATE ===
+var orders=[],meds=[],custs=[],revs=[],bills=[];
+var bItems=[],curBillK=null,selMedK=null,bCnt=0,billingReady=false;
+var sets={shop:"Singh Medicals",phone:"7479551525",upi:"7479551525@ybl",gst:0};
+var curUser=null,curPage="dashboard";
+var _deleting={};  // Track delete operations to prevent double-delete
+var _saving=false; // Track bill saving state
+
+function $(id){return document.getElementById(id)}
+function N(v){return Number(v)||0}
+function F(v){return N(v).toFixed(2)}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+
+function toast(m,t){
+t=t||'ok';var ico=t==='ok'?'✅':t==='err'?'❌':'⚠️';
+var box=$('toastBox'),el=document.createElement('div');
+el.className='t-item t-'+t;
+el.innerHTML='<span>'+ico+'</span><span style="flex:1;line-height:1.5">'+m+'</span><button class="t-close" onclick="this.parentElement.remove()">✕</button>';
+box.appendChild(el);
+requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.add('show');});});
+setTimeout(function(){el.classList.remove('show');setTimeout(function(){if(el.parentElement)el.remove();},400);},4000);
 }
 
-/* ===== STATE ===== */
-var orders = [];
-var meds = [];
-var custs = [];
-var revs = [];
-var bills = [];
-var bItems = [];
-var curBillK = null;
-var selMedK = null;
-var billingReady = false;
-var curUser = null;
-var curPage = "dashboard";
-var _bound = false;
-var _saving = false;
-var _deleting = {};
-var nextBillNum = 1;
-var sets = { shop: "Singh Medicals", phone: "7479551525", upi: "7479551525@ybl", gst: 0 };
+// =====================
+// AUTH
+// =====================
+function showLogin(){$('viewLogin').style.display='block';$('viewReg').style.display='none';$('viewForgot').style.display='none';hideErr();}
+function showReg(){$('viewLogin').style.display='none';$('viewReg').style.display='block';$('viewForgot').style.display='none';hideErr();}
+function showForgot(){$('viewLogin').style.display='none';$('viewReg').style.display='none';$('viewForgot').style.display='block';hideErr();}
+function hideErr(){['errLogin','errReg','errForgot'].forEach(function(id){$(id).classList.remove('on');});}
+function showErr(id,msg){$(id).classList.add('on');$(id+'Msg').textContent=msg;}
+function busy(id,on){var b=$(id);if(!b)return;if(on){b.classList.add('busy');b.disabled=true;}else{b.classList.remove('busy');b.disabled=false;}}
+function toggleEye(id,btn){var i=$(id);if(i.type==='password'){i.type='text';btn.textContent='🙈';}else{i.type='password';btn.textContent='👁️';}}
+function fbErr(c){return{'auth/email-already-in-use':'Email already exists.','auth/invalid-email':'Invalid email.','auth/user-not-found':'No account found.','auth/wrong-password':'Wrong password.','auth/weak-password':'Min 6 characters.','auth/too-many-requests':'Too many tries. Wait.','auth/invalid-credential':'Invalid credentials.','auth/invalid-login-credentials':'Invalid email/password.','auth/network-request-failed':'Network error.'}[c]||'Error: '+(c||'unknown')}
 
-/* ===== HELPERS ===== */
-function $(id) { return document.getElementById(id); }
-function N(v) { return Number(v) || 0; }
-function F(v) { return N(v).toFixed(2); }
-function esc(s) { return (s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+function login(){hideErr();var e=($('inpLoginEmail').value||'').trim(),p=($('inpLoginPass').value||'').trim();if(!e){showErr('errLogin','Enter email');return;}if(!p){showErr('errLogin','Enter password');return;}if(!auth){showErr('errLogin','Auth not loaded');return;}busy('btnLogin',true);auth.signInWithEmailAndPassword(e,p).catch(function(err){showErr('errLogin',fbErr(err.code));busy('btnLogin',false);});}
+function register(){hideErr();var e=($('inpRegEmail').value||'').trim(),p=($('inpRegPass').value||'').trim(),p2=($('inpRegPass2').value||'').trim();if(!e){showErr('errReg','Enter email');return;}if(p.length<6){showErr('errReg','Min 6 chars');return;}if(p!==p2){showErr('errReg','No match');return;}busy('btnReg',true);auth.createUserWithEmailAndPassword(e,p).then(function(c){if(db)db.ref('admin_users/'+c.user.uid).set({email:e,created:new Date().toISOString()});toast('Account created!');}).catch(function(err){showErr('errReg',fbErr(err.code));busy('btnReg',false);});}
+function forgot(){hideErr();var e=($('inpForgotEmail').value||'').trim();if(!e){showErr('errForgot','Enter email');return;}busy('btnForgot',true);auth.sendPasswordResetEmail(e).then(function(){toast('Reset link sent!');showLogin();busy('btnForgot',false);}).catch(function(err){showErr('errForgot',fbErr(err.code));busy('btnForgot',false);});}
+function logout(){if(!confirm('Logout?'))return;if(auth)auth.signOut();}
 
-function toast(m, t) {
-  t = t || "ok";
-  var ico = t === "ok" ? "✅" : t === "err" ? "❌" : "⚠️";
-  var box = $("toastBox");
-  var el = document.createElement("div");
-  el.className = "t-item t-" + t;
-  el.innerHTML = "<span>" + ico + "</span><span style='flex:1;line-height:1.5'>" + m + "</span><button class='t-close' onclick='this.parentElement.remove()'>✕</button>";
-  box.appendChild(el);
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() { el.classList.add("show"); });
-  });
-  setTimeout(function() {
-    el.classList.remove("show");
-    setTimeout(function() { if (el.parentElement) el.remove(); }, 400);
-  }, 4000);
+function onAuth(user){
+busy('btnLogin',false);busy('btnReg',false);
+if(user){curUser=user;$('authWrap').classList.add('gone');$('uName').textContent='Admin';$('uEmail').textContent=user.email||'';$('uAva').textContent=(user.email||'A').slice(0,2).toUpperCase();if(!_bound){loadData();_bound=true;}}
+else{curUser=null;$('authWrap').classList.remove('gone');showLogin();if(_bound&&db){['orders','medicines','customers','reviews','bills','admin_settings'].forEach(function(p){try{db.ref(p).off();}catch(e){}});_bound=false;}orders=[];meds=[];custs=[];revs=[];bills=[];}
 }
 
-function scard(ic, val, lbl, cl) {
-  return '<div class="scard ' + cl + '"><div class="sc-ic">' + ic + '</div><div class="sc-num">' + val + '</div><div class="sc-lbl">' + lbl + '</div></div>';
+// =====================
+// NAV
+// =====================
+var pgN={dashboard:"Dashboard",billing:"New Bill",bills:"Bill History",orders:"Orders",inventory:"Inventory",customers:"Customers",reviews:"Reviews",settings:"Settings"};
+function go(id){curPage=id;document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});var pg=$('pg-'+id);if(pg)pg.classList.add('on');document.querySelectorAll('.sb-link').forEach(function(s){s.classList.toggle('on',s.dataset.pg===id);});$('pgTitle').textContent=pgN[id]||'Dashboard';if(id==='billing'&&!billingReady)initBill();renderAll();$('sidebar').classList.remove('open');}
+function toggleSB(){$('sidebar').classList.toggle('open');}
+function oMdl(id){$(id).classList.add('on');}
+function cMdl(id){$(id).classList.remove('on');}
+
+// Render everything for current page
+function renderAll(){
+if(curPage==='dashboard')rDash();
+else if(curPage==='orders')rOrders();
+else if(curPage==='inventory')rInv();
+else if(curPage==='customers')rCust();
+else if(curPage==='reviews')rRevs();
+else if(curPage==='bills')rBills();
 }
 
-function stBdg(s) {
-  var c = s === "Delivered" ? "bdg-g" : s === "Cancelled" ? "bdg-r" : s === "Confirmed" ? "bdg-b" : "bdg-a";
-  return '<span class="bdg ' + c + '">' + esc(s) + '</span>';
-}
-
-/* ===== AUTH ===== */
-function showLogin() { $("viewLogin").style.display = "block"; $("viewReg").style.display = "none"; $("viewForgot").style.display = "none"; hideErr(); }
-function showReg() { $("viewLogin").style.display = "none"; $("viewReg").style.display = "block"; $("viewForgot").style.display = "none"; hideErr(); }
-function showForgot() { $("viewLogin").style.display = "none"; $("viewReg").style.display = "none"; $("viewForgot").style.display = "block"; hideErr(); }
-function hideErr() { ["errLogin","errReg","errForgot"].forEach(function(id) { $(id).classList.remove("on"); }); }
-function showErr(id, msg) { $(id).classList.add("on"); $(id + "Msg").textContent = msg; }
-function busy(id, on) { var b = $(id); if (!b) return; if (on) { b.classList.add("busy"); b.disabled = true; } else { b.classList.remove("busy"); b.disabled = false; } }
-
-function toggleEye(id, btn) {
-  var i = $(id);
-  if (i.type === "password") { i.type = "text"; btn.textContent = "🙈"; }
-  else { i.type = "password"; btn.textContent = "👁️"; }
-}
-
-function fbErr(c) {
-  var m = {
-    "auth/email-already-in-use": "Email already exists.",
-    "auth/invalid-email": "Invalid email.",
-    "auth/user-not-found": "No account found.",
-    "auth/wrong-password": "Wrong password.",
-    "auth/weak-password": "Min 6 characters.",
-    "auth/too-many-requests": "Too many tries.",
-    "auth/invalid-credential": "Invalid credentials.",
-    "auth/invalid-login-credentials": "Invalid email/password.",
-    "auth/network-request-failed": "Network error."
-  };
-  return m[c] || ("Error: " + (c || "unknown"));
-}
-
-function login() {
-  hideErr();
-  var e = ($("inpLoginEmail").value || "").trim();
-  var p = ($("inpLoginPass").value || "").trim();
-  if (!e) { showErr("errLogin", "Enter email"); return; }
-  if (!p) { showErr("errLogin", "Enter password"); return; }
-  if (!auth) { showErr("errLogin", "Auth not loaded"); return; }
-  busy("btnLogin", true);
-  auth.signInWithEmailAndPassword(e, p).catch(function(err) {
-    showErr("errLogin", fbErr(err.code));
-    busy("btnLogin", false);
-  });
-}
-
-function register() {
-  hideErr();
-  var e = ($("inpRegEmail").value || "").trim();
-  var p = ($("inpRegPass").value || "").trim();
-  var p2 = ($("inpRegPass2").value || "").trim();
-  if (!e) { showErr("errReg", "Enter email"); return; }
-  if (p.length < 6) { showErr("errReg", "Min 6 chars"); return; }
-  if (p !== p2) { showErr("errReg", "No match"); return; }
-  busy("btnReg", true);
-  auth.createUserWithEmailAndPassword(e, p).then(function(c) {
-    if (db) db.ref("admin_users/" + c.user.uid).set({ email: e, created: new Date().toISOString() });
-    toast("Account created!");
-  }).catch(function(err) {
-    showErr("errReg", fbErr(err.code));
-    busy("btnReg", false);
-  });
-}
-
-function forgot() {
-  hideErr();
-  var e = ($("inpForgotEmail").value || "").trim();
-  if (!e) { showErr("errForgot", "Enter email"); return; }
-  busy("btnForgot", true);
-  auth.sendPasswordResetEmail(e).then(function() {
-    toast("Reset link sent!");
-    showLogin();
-    busy("btnForgot", false);
-  }).catch(function(err) {
-    showErr("errForgot", fbErr(err.code));
-    busy("btnForgot", false);
-  });
-}
-
-function logout() {
-  if (!confirm("Logout?")) return;
-  if (auth) auth.signOut();
-}
-
-function onAuth(user) {
-  busy("btnLogin", false);
-  busy("btnReg", false);
-  if (user) {
-    curUser = user;
-    $("authWrap").classList.add("gone");
-    $("uName").textContent = "Admin";
-    $("uEmail").textContent = user.email || "";
-    $("uAva").textContent = (user.email || "A").slice(0, 2).toUpperCase();
-    if (!_bound) { loadData(); _bound = true; }
-  } else {
-    curUser = null;
-    $("authWrap").classList.remove("gone");
-    showLogin();
-    if (_bound && db) {
-      ["orders","medicines","customers","reviews","bills","admin_settings","bill_counter"].forEach(function(p) {
-        try { db.ref(p).off(); } catch(e) {}
-      });
-      _bound = false;
-    }
-    orders = []; meds = []; custs = []; revs = []; bills = [];
-  }
-}
-
-/* ===== NAV ===== */
-var pgN = { dashboard:"Dashboard", billing:"New Bill", bills:"Bill History", orders:"Orders", inventory:"Inventory", customers:"Customers", reviews:"Reviews", settings:"Settings" };
-
-function go(id) {
-  curPage = id;
-  document.querySelectorAll(".page").forEach(function(p) { p.classList.remove("on"); });
-  var pg = $("pg-" + id);
-  if (pg) pg.classList.add("on");
-  document.querySelectorAll(".sb-link").forEach(function(s) { s.classList.toggle("on", s.dataset.pg === id); });
-  $("pgTitle").textContent = pgN[id] || "Dashboard";
-  if (id === "billing" && !billingReady) initBill();
-  renderPage();
-  $("sidebar").classList.remove("open");
-}
-
-function toggleSB() { $("sidebar").classList.toggle("open"); }
-function oMdl(id) { $(id).classList.add("on"); }
-function cMdl(id) { $(id).classList.remove("on"); }
-
-function renderPage() {
-  switch(curPage) {
-    case "dashboard": rDash(); break;
-    case "orders": rOrders(); break;
-    case "inventory": rInv(); break;
-    case "customers": rCust(); break;
-    case "reviews": rRevs(); break;
-    case "bills": rBills(); break;
-  }
-}
-
-/* ===== DATA LISTENERS ===== */
-function loadData() {
-  if (!db) { toast("Database not ready", "err"); return; }
-
-  $("tbDate").textContent = new Date().toLocaleDateString("en-IN", { weekday:"short", day:"numeric", month:"short", year:"numeric" });
-
-  // Bill counter listener
-  db.ref("bill_counter").on("value", function(s) {
-    nextBillNum = s.exists() ? (N(s.val()) + 1) : 1;
-    if (billingReady) {
-      $("billNo").textContent = "SM-" + String(nextBillNum).padStart(4, "0");
-    }
-  });
-
-  db.ref("admin_settings").on("value", function(s) {
-    if (s.exists()) sets = Object.assign({}, sets, s.val());
-    $("sShop").value = sets.shop || "";
-    $("sPhone").value = sets.phone || "";
-    $("sUPI").value = sets.upi || "";
-    $("sGST").value = sets.gst || 0;
-  });
-
-  db.ref("orders").on("value", function(s) {
-    orders = [];
-    if (s.exists()) s.forEach(function(c) { orders.unshift({ k: c.key, v: c.val() }); });
-    var pend = orders.filter(function(o) { return o.v.status !== "Delivered" && o.v.status !== "Cancelled"; }).length;
-    var b = $("oBadge");
-    if (pend > 0) { b.textContent = pend; b.style.display = "inline"; } else { b.style.display = "none"; }
-    if (curPage === "dashboard") rDash();
-    if (curPage === "orders") rOrders();
-  });
-
-  db.ref("medicines").on("value", function(s) {
-    meds = [];
-    if (s.exists()) s.forEach(function(c) { meds.push({ k: c.key, v: c.val() }); });
-    if (curPage === "dashboard") rDash();
-    if (curPage === "inventory") rInv();
-  });
-
-  db.ref("customers").on("value", function(s) {
-    custs = [];
-    if (s.exists()) s.forEach(function(c) { custs.push({ k: c.key, v: c.val() }); });
-    if (curPage === "customers") rCust();
-  });
-
-  db.ref("reviews").on("value", function(s) {
-    revs = [];
-    if (s.exists()) s.forEach(function(c) { revs.push({ k: c.key, v: c.val() }); });
-    if (curPage === "reviews") rRevs();
-  });
-
-  db.ref("bills").on("value", function(s) {
-    bills = [];
-    if (s.exists()) s.forEach(function(c) { bills.unshift({ k: c.key, v: c.val() }); });
-    if (curPage === "dashboard") rDash();
-    if (curPage === "bills") rBills();
-  });
-
-  rDash();
-}
-
-/* ===== DASHBOARD ===== */
-function rDash() {
-  var ds = $("dStats");
-  if (!ds) return;
-  var tO = orders.length;
-  var pO = orders.filter(function(o) { return o.v.status !== "Delivered" && o.v.status !== "Cancelled"; }).length;
-  var tM = meds.length;
-  var lo = meds.filter(function(m) { return N(m.v.qty) > 0 && N(m.v.qty) < 10; }).length;
-  var ou = meds.filter(function(m) { return N(m.v.qty) <= 0; }).length;
-  var today = new Date().toISOString().split("T")[0];
-  var tR = 0, tdR = 0;
-  bills.forEach(function(b) {
-    tR += N(b.v.grandTotal);
-    if (b.v.date === today) tdR += N(b.v.grandTotal);
-  });
-  ds.innerHTML = scard("👨‍⚕️", bills.length, "Customers Served", "sp") + scard("📦", tO, "Orders", "si") + scard("⏳", pO, "Pending", "sa") + scard("💰", "₹" + tdR.toFixed(0), "Today Rev", "sg") + scard("💊", tM, "Medicines", "sb") + scard("⚠️", lo, "Low Stock", "sa") + scard("🚫", ou, "Out", "sr") + scard("💵", "₹" + tR.toFixed(0), "Total Rev", "sg");
-
-  var t = $("dOrdTbl");
-  if (!t) return;
-  if (!orders.length) {
-    t.innerHTML = '<tr><td colspan="7"><div class="empty"><div class="empty-ic">📦</div><div class="empty-s">No orders</div></div></td></tr>';
-    return;
-  }
-  var html = "";
-  var show = orders.slice(0, 5);
-  for (var i = 0; i < show.length; i++) {
-    var o = show[i], s = o.v.status || "Order Placed";
-    html += '<tr><td style="font-family:monospace;font-weight:700;font-size:10px">#' + o.k.slice(-6).toUpperCase() + '</td><td style="font-weight:700">' + esc(o.v.name) + '</td><td>' + esc(o.v.mobile) + '</td><td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(o.v.medicines) + '</td><td>' + stBdg(s) + '</td><td style="font-size:10px">' + (o.v.date||"") + '</td><td><button class="btn btn-s" style="font-size:9px;padding:3px 7px" data-act="status" data-key="' + o.k + '" data-st="' + esc(s) + '">✏️</button></td></tr>';
-  }
-  t.innerHTML = html;
-}
-
-/* ===== ORDERS ===== */
-function rOrders(f) {
-  var list = orders;
-  if (f) {
-    var fl = f.toLowerCase();
-    list = orders.filter(function(o) { return ((o.v.name||"")+(o.v.mobile||"")+(o.v.medicines||"")+(o.v.status||"")).toLowerCase().indexOf(fl) !== -1; });
-  }
-  var p = orders.filter(function(o){return o.v.status==="Order Placed";}).length;
-  var c = orders.filter(function(o){return o.v.status==="Confirmed";}).length;
-  var d = orders.filter(function(o){return o.v.status==="Delivered";}).length;
-  var x = orders.filter(function(o){return o.v.status==="Cancelled";}).length;
-  $("oStats").innerHTML = scard("📋",p,"Placed","sa") + scard("✅",c,"Confirmed","sb") + scard("🎉",d,"Delivered","sg") + scard("❌",x,"Cancelled","sr");
-  var t = $("oTbl");
-  if (!list.length) { t.innerHTML = '<tr><td colspan="9"><div class="empty"><div class="empty-ic">📦</div><div class="empty-s">No orders</div></div></td></tr>'; return; }
-  var html = "";
-  for (var i = 0; i < list.length; i++) {
-    var o = list[i], s = o.v.status || "Order Placed";
-    html += '<tr><td style="font-family:monospace;font-weight:700;font-size:10px">#'+o.k.slice(-6).toUpperCase()+'</td><td style="font-weight:700">'+esc(o.v.name)+'</td><td>'+esc(o.v.mobile)+'</td><td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(o.v.medicines)+'</td><td>'+stBdg(s)+'</td><td style="font-size:10px">'+(o.v.delivery||"")+'</td><td style="font-size:10px">'+(o.v.payment||"")+'</td><td style="font-size:10px">'+(o.v.date||"")+'</td><td style="white-space:nowrap"><button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-act="status" data-key="'+o.k+'" data-st="'+esc(s)+'">✏️</button> <button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-act="delord" data-key="'+o.k+'">🗑️</button></td></tr>';
-  }
-  t.innerHTML = html;
-}
-
-function oStatus(k, s) {
-  $("msOid").value = "#" + k.slice(-6).toUpperCase();
-  $("msOid").dataset.key = k;
-  $("msSt").value = s;
-  oMdl("mdlStatus");
-}
-
-function updStatus() {
-  var k = $("msOid").dataset.key, s = $("msSt").value;
-  if (!k || !db) return;
-  db.ref("orders/" + k).update({ status: s }).then(function() {
-    toast("Status → " + s);
-    cMdl("mdlStatus");
-  }).catch(function() { toast("Failed", "err"); });
-}
-
-function delOrd(k) {
-  if (_deleting[k]) return;
-  if (!confirm("Delete this order?")) return;
-  _deleting[k] = true;
-  db.ref("orders/" + k).remove().then(function() {
-    toast("Deleted"); delete _deleting[k];
-  }).catch(function() { toast("Failed", "err"); delete _deleting[k]; });
-}
-
-/* ===== INVENTORY ===== */
-function rInv(f) {
-  var list = meds;
-  if (f) { var fl = f.toLowerCase(); list = meds.filter(function(m) { return ((m.v.name||"")+(m.v.brand||"")+(m.v.cat||"")).toLowerCase().indexOf(fl) !== -1; }); }
-  var tM = meds.length, ins = meds.filter(function(m){return N(m.v.qty)>0;}).length, lo = meds.filter(function(m){return N(m.v.qty)>0&&N(m.v.qty)<10;}).length, ou = meds.filter(function(m){return N(m.v.qty)<=0;}).length;
-  $("iStats").innerHTML = scard("💊",tM,"Total","si") + scard("✅",ins,"In Stock","sg") + scard("⚠️",lo,"Low","sa") + scard("🚫",ou,"Out","sr");
-  var t = $("iTbl");
-  if (!list.length) { t.innerHTML = '<tr><td colspan="8"><div class="empty"><div class="empty-ic">💊</div><div class="empty-t">No medicines</div></div></td></tr>'; return; }
-  var html = "";
-  for (var i = 0; i < list.length; i++) {
-    var m = list[i], q = N(m.v.qty), bc = q<=0?"bdg-r":q<10?"bdg-a":"bdg-g", bl = q<=0?"Out":q<10?"Low("+q+")":"✓"+q;
-    html += '<tr><td style="font-weight:700">'+esc(m.v.name)+'</td><td style="font-size:10px">'+(m.v.cat||"")+'</td><td style="font-size:10px">'+(m.v.brand||"")+'</td><td style="font-weight:700">₹'+N(m.v.price)+'</td><td><span class="bdg '+bc+'">'+bl+'</span></td><td style="font-size:10px">'+(m.v.unit||"")+'</td><td><span class="bdg '+(m.v.rx==="Yes"?"bdg-b":"bdg-gr")+'">'+(m.v.rx==="Yes"?"Rx":"OTC")+'</span></td><td style="white-space:nowrap"><button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-act="editmed" data-key="'+m.k+'">✏️</button> <button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-act="delmed" data-key="'+m.k+'">🗑️</button></td></tr>';
-  }
-  t.innerHTML = html;
-}
-
-function addMed() {
-  $("mmTitle").textContent = "💊 Add";
-  $("mmKey").value = "";
-  ["mmNm","mmBr","mmPr","mmQt","mmUn"].forEach(function(id) { $(id).value = ""; });
-  $("mmCat").value = "Medicines"; $("mmRx").value = "No";
-  oMdl("mdlMed");
-}
-
-function editMed(k) {
-  var m = meds.find(function(x) { return x.k === k; });
-  if (!m) return;
-  $("mmTitle").textContent = "✏️ Edit";
-  $("mmKey").value = k;
-  $("mmNm").value = m.v.name || "";
-  $("mmBr").value = m.v.brand || "";
-  $("mmCat").value = m.v.cat || "Medicines";
-  $("mmPr").value = m.v.price || "";
-  $("mmQt").value = m.v.qty || "";
-  $("mmUn").value = m.v.unit || "";
-  $("mmRx").value = m.v.rx || "No";
-  oMdl("mdlMed");
-}
-
-function saveMed() {
-  var k = $("mmKey").value, n = $("mmNm").value.trim();
-  if (!n) { toast("Name required", "err"); return; }
-  if (!db) return;
-  var d = { name: n, brand: $("mmBr").value.trim(), cat: $("mmCat").value, price: N($("mmPr").value), qty: parseInt($("mmQt").value) || 0, unit: $("mmUn").value.trim(), rx: $("mmRx").value };
-  var ref = k ? db.ref("medicines/" + k).update(d) : db.ref("medicines").push(d);
-  ref.then(function() { toast("Saved!"); cMdl("mdlMed"); }).catch(function() { toast("Failed", "err"); });
-}
-
-function delMed(k) {
-  if (_deleting[k]) return;
-  if (!confirm("Delete?")) return;
-  _deleting[k] = true;
-  db.ref("medicines/" + k).remove().then(function() { toast("Deleted"); delete _deleting[k]; }).catch(function() { toast("Failed", "err"); delete _deleting[k]; });
-}
-
-/* ===== CUSTOMERS ===== */
-function rCust(f) {
-  var list = custs;
-  if (f) { var fl = f.toLowerCase(); list = custs.filter(function(c) { return ((c.v.phone||"")+c.k).toLowerCase().indexOf(fl) !== -1; }); }
-  var t = $("cTbl");
-  if (!list.length) { t.innerHTML = '<tr><td colspan="3"><div class="empty"><div class="empty-ic">👥</div><div class="empty-s">No customers</div></div></td></tr>'; return; }
-  var html = "";
-  for (var i = 0; i < list.length; i++) {
-    var c = list[i];
-    var oc = orders.filter(function(o) { return o.v.mobile === c.v.phone; }).length;
-    html += '<tr><td style="font-weight:700">+91 '+(c.v.phone||c.k)+'</td><td style="font-size:10px">'+(c.v.lastLogin||"—")+'</td><td><span class="bdg bdg-b">'+oc+'</span></td></tr>';
-  }
-  t.innerHTML = html;
-}
-
-/* ===== REVIEWS ===== */
-function rRevs() {
-  var t = $("rTbl");
-  if (!revs.length) { t.innerHTML = '<tr><td colspan="6"><div class="empty"><div class="empty-ic">⭐</div><div class="empty-s">No reviews</div></div></td></tr>'; return; }
-  var html = "";
-  for (var i = 0; i < revs.length; i++) {
-    var r = revs[i];
-    html += '<tr><td style="font-weight:700">'+esc(r.v.name)+'</td><td style="font-size:10px">'+(r.v.loc||"")+'</td><td style="color:#f59e0b">'+"★".repeat(N(r.v.stars)||5)+'</td><td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.v.text)+'</td><td style="font-size:10px">'+(r.v.date||"")+'</td><td><button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-act="delrev" data-key="'+r.k+'">🗑️</button></td></tr>';
-  }
-  t.innerHTML = html;
-}
-
-function delRev(k) {
-  if (_deleting[k]) return;
-  if (!confirm("Delete?")) return;
-  _deleting[k] = true;
-  db.ref("reviews/" + k).remove().then(function() { toast("Deleted"); delete _deleting[k]; }).catch(function() { toast("Failed", "err"); delete _deleting[k]; });
-}
-
-/* ===== SETTINGS ===== */
-function saveSets() {
-  var d = { shop: $("sShop").value.trim() || "Singh Medicals", phone: $("sPhone").value.trim() || "7479551525", upi: $("sUPI").value.trim() || "7479551525@ybl", gst: N($("sGST").value) };
-  sets = d;
-  db.ref("admin_settings").set(d).then(function() { toast("Saved!"); }).catch(function() { toast("Failed", "err"); });
-}
-
-/* ===== BILLING ===== */
-function initBill() {
-  bItems = [];
-  selMedK = null;
-  billingReady = true;
-  _saving = false;
-  ["bName","bMob","bAddr","bMedNm","bMedPr","bMedUn","bRef"].forEach(function(id) { $(id).value = ""; });
-  $("bDate").value = new Date().toISOString().split("T")[0];
-  $("bMedQt").value = "1";
-  $("bPay").value = "Cash";
-  $("dscTyp").value = "percent";
-  $("dscVal").value = "";
-  $("billNo").textContent = "SM-" + String(nextBillNum).padStart(4, "0");
-  rBItems();
-  calc();
-  $("btnSaveBill").disabled = false;
-  $("btnPrintBill").disabled = false;
-}
-
-function medSrch(q) {
-  var sg = $("sugBox");
-  if (!q || q.trim().length < 1) { sg.classList.remove("open"); return; }
-  var ql = q.toLowerCase();
-  var found = meds.filter(function(m) { return ((m.v.name||"").toLowerCase().indexOf(ql) !== -1 || (m.v.brand||"").toLowerCase().indexOf(ql) !== -1); });
-  if (!found.length) {
-    sg.innerHTML = '<div class="sug-item" style="color:var(--muted)">Not found</div>';
-    sg.classList.add("open");
-    selMedK = null;
-    return;
-  }
-  var html = "";
-  var show = found.slice(0, 8);
-  for (var i = 0; i < show.length; i++) {
-    var m = show[i], qty = N(m.v.qty);
-    var st = qty <= 0 ? '<span style="color:red">Out</span>' : qty < 10 ? '<span style="color:orange">Low:'+qty+'</span>' : '<span style="color:green">'+qty+'</span>';
-    html += '<div class="sug-item" data-act="pickmed" data-key="'+m.k+'"><div><b>'+esc(m.v.name)+'</b> <span style="font-size:10px;color:#999">'+(m.v.brand||"")+'</span></div><div style="text-align:right"><span style="color:var(--p);font-weight:800">₹'+N(m.v.price)+'</span><br>'+st+'</div></div>';
-  }
-  sg.innerHTML = html;
-  sg.classList.add("open");
-}
-
-function pickMed(k) {
-  var m = meds.find(function(x) { return x.k === k; });
-  if (!m) return;
-  selMedK = k;
-  $("bMedNm").value = m.v.name || "";
-  $("bMedPr").value = m.v.price || "";
-  $("bMedUn").value = m.v.unit || "strip";
-  $("bMedQt").value = "1";
-  $("sugBox").classList.remove("open");
-  $("bMedQt").focus();
-}
-
-function addItem() {
-  var nm = $("bMedNm").value.trim();
-  var qt = parseInt($("bMedQt").value) || 0;
-  var pr = N($("bMedPr").value);
-  var un = $("bMedUn").value.trim() || "unit";
-  if (!nm) { toast("Medicine name!", "err"); return; }
-  if (qt <= 0) { toast("Qty!", "err"); return; }
-  if (pr <= 0) { toast("Price!", "err"); return; }
-  if (selMedK) {
-    var med = meds.find(function(m) { return m.k === selMedK; });
-    if (med) {
-      var already = 0;
-      bItems.forEach(function(it) { if (it.mk === selMedK) already += it.qt; });
-      var avail = N(med.v.qty) - already;
-      if (qt > avail) { toast("Only " + Math.max(0, avail) + " in stock!", "err"); return; }
-    }
-  }
-  bItems.push({ mk: selMedK, nm: nm, qt: qt, pr: pr, un: un, amt: qt * pr });
-  $("bMedNm").value = ""; $("bMedQt").value = "1"; $("bMedPr").value = ""; $("bMedUn").value = "";
-  selMedK = null;
-  rBItems(); calc(); $("bMedNm").focus();
-  toast(nm + " added");
-}
-
-function rmItem(i) {
-  if (i >= 0 && i < bItems.length) { bItems.splice(i, 1); rBItems(); calc(); }
-}
-
-function rBItems() {
-  var t = $("bItmTbl");
-  $("bItmCnt").textContent = bItems.length;
-  if (!bItems.length) { t.innerHTML = '<tr><td colspan="7"><div class="it-empty">📋 Add medicines</div></td></tr>'; return; }
-  var html = "";
-  for (var i = 0; i < bItems.length; i++) {
-    var it = bItems[i];
-    html += '<tr><td style="color:var(--muted);font-weight:700">'+(i+1)+'</td><td style="font-weight:700">'+esc(it.nm)+'</td><td style="font-size:10px">'+it.un+'</td><td>'+it.qt+'</td><td>₹'+F(it.pr)+'</td><td style="font-weight:700;color:var(--pd)">₹'+F(it.amt)+'</td><td><button class="rm-btn" data-act="rmitem" data-idx="'+i+'">✕</button></td></tr>';
-  }
-  t.innerHTML = html;
-}
-
-function calc() {
-  var sub = 0;
-  bItems.forEach(function(it) { sub += N(it.amt); });
-  var dt = $("dscTyp").value, dv = N($("dscVal").value), da = 0, dp = $("dscPrev");
-  if (dv > 0 && sub > 0) {
-    if (dt === "percent") { da = sub * (dv / 100); dp.textContent = dv + "% = ₹" + F(da) + " off"; }
-    else { da = Math.min(dv, sub); dp.textContent = "₹" + F(da) + " off"; }
-    if (da > sub) da = sub;
-    $("blsDiscR").style.display = "flex";
-    $("blsDisc").textContent = "-₹" + F(da);
-  } else {
-    dp.textContent = "No discount";
-    $("blsDiscR").style.display = "none";
-    da = 0;
-  }
-  var gr = N(sets.gst), taxable = sub - da, tax = taxable * (gr / 100), grand = taxable + tax;
-  $("blsSub").textContent = "₹" + F(sub);
-  $("blsTax").textContent = gr > 0 ? "₹" + F(tax) + " (" + gr + "%)" : "₹0.00";
-  $("blsTotal").textContent = "₹" + F(grand);
-  $("blsSumSub").textContent = bItems.length + " items · ₹" + F(grand);
-  return { sub: sub, da: da, dt: dt, dv: dv, tax: tax, gr: gr, grand: grand };
-}
-
-/* ===== SAVE BILL - COMPLETE FIX ===== */
-function saveBill(doPrint) {
-  if (_saving) { toast("Already saving...", "warn"); return; }
-
-  var nm = $("bName").value.trim();
-  var mob = $("bMob").value.replace(/\D/g, "").trim();
-  if (!nm) { toast("Patient name!", "err"); return; }
-  if (mob.length !== 10) { toast("10-digit mobile!", "err"); return; }
-  if (!bItems.length) { toast("Add items!", "err"); return; }
-  if (!db) { toast("Database error", "err"); return; }
-
-  _saving = true;
-  $("btnSaveBill").disabled = true;
-  $("btnPrintBill").disabled = true;
-  $("stockLoader").classList.add("on");
-
-  var tot = calc();
-
-  // Collect stock changes needed
-  var stockMap = {};
-  var itemNames = {};
-  for (var i = 0; i < bItems.length; i++) {
-    var it = bItems[i];
-    if (it.mk) {
-      if (!stockMap[it.mk]) stockMap[it.mk] = 0;
-      stockMap[it.mk] += it.qt;
-      itemNames[it.mk] = it.nm;
-    }
-  }
-
-  // Prepare bill items array (plain objects, no undefined)
-  var billItems = [];
-  for (var j = 0; j < bItems.length; j++) {
-    billItems.push({
-      medKey: bItems[j].mk || "",
-      name: bItems[j].nm || "",
-      qty: bItems[j].qt || 0,
-      price: bItems[j].pr || 0,
-      unit: bItems[j].un || "unit",
-      amount: bItems[j].amt || 0
-    });
-  }
-
-  // STEP 1: Get serial number via transaction
-  db.ref("bill_counter").transaction(function(current) {
-    return (N(current) || 0) + 1;
-  }, function(error, committed, snapshot) {
-    if (error || !committed) {
-      console.error("Bill counter transaction failed:", error);
-      $("stockLoader").classList.remove("on");
-      _saving = false;
-      $("btnSaveBill").disabled = false;
-      $("btnPrintBill").disabled = false;
-      toast("Bill counter failed! Try again.", "err");
-      return;
-    }
-
-    var serialNum = snapshot.val();
-    var billNo = "SM-" + String(serialNum).padStart(4, "0");
-
-    var billData = {
-      billNo: billNo,
-      serialNumber: serialNum,
-      patientName: nm,
-      mobile: mob,
-      address: $("bAddr").value.trim() || "",
-      date: $("bDate").value || new Date().toISOString().split("T")[0],
-      time: new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }),
-      items: billItems,
-      subtotal: tot.sub,
-      discountType: tot.dt,
-      discountValue: tot.dv,
-      discountAmount: tot.da,
-      gstRate: tot.gr,
-      tax: tot.tax,
-      grandTotal: tot.grand,
-      paymentMode: $("bPay").value,
-      paymentRef: $("bRef").value.trim() || "",
-      timestamp: new Date().toISOString(),
-      itemCount: bItems.length,
-      createdBy: curUser ? curUser.email : "",
-      stockUpdated: true
-    };
-
-    // STEP 2: Save bill
-    db.ref("bills").push(billData, function(billErr) {
-      if (billErr) {
-        console.error("Bill push failed:", billErr);
-        $("stockLoader").classList.remove("on");
-        _saving = false;
-        $("btnSaveBill").disabled = false;
-        $("btnPrintBill").disabled = false;
-        toast("Bill save failed: " + billErr.message, "err");
-        return;
-      }
-
-      // Bill saved successfully - now get the key
-      // Since push with callback doesn't return ref, we use a different approach
-      console.log("✅ Bill #" + serialNum + " saved!");
-
-      // STEP 3: Update stock using multi-path update (simpler & more reliable than transactions)
-      var medKeys = Object.keys(stockMap);
-      if (medKeys.length === 0) {
-        // No stock to update
-        $("stockLoader").classList.remove("on");
-        _saving = false;
-        toast("✅ Bill #" + serialNum + " saved!");
-        if (doPrint) printBill(billData);
-        billingReady = false;
-        initBill();
-        return;
-      }
-
-      // Read current stock values, then update
-      var stockPromises = [];
-      for (var s = 0; s < medKeys.length; s++) {
-        (function(mk) {
-          var deduct = stockMap[mk];
-          var p = db.ref("medicines/" + mk + "/qty").transaction(function(currentQty) {
-            var cur = N(currentQty);
-            return Math.max(0, cur - deduct);
-          });
-          stockPromises.push(p);
-        })(medKeys[s]);
-      }
-
-      Promise.all(stockPromises).then(function() {
-        console.log("✅ Stock updated for " + medKeys.length + " items");
-        $("stockLoader").classList.remove("on");
-        _saving = false;
-        toast("✅ Bill #" + serialNum + " saved & stock updated!");
-        if (doPrint) printBill(billData);
-        billingReady = false;
-        initBill();
-      }).catch(function(stockErr) {
-        console.error("Stock update error:", stockErr);
-        $("stockLoader").classList.remove("on");
-        _saving = false;
-        toast("⚠️ Bill saved, stock update issue", "warn");
-        if (doPrint) printBill(billData);
-        billingReady = false;
-        initBill();
-      });
-    });
-
-  }, false); // false = don't apply locally first
-}
-
-function clearBill() {
-  if (bItems.length && !confirm("Clear?")) return;
-  billingReady = false;
-  initBill();
-  toast("Cleared");
-}
-
-/* ===== PRINT ===== */
-function printBill(d) {
-  var items = "";
-  var arr = d.items || [];
-  for (var i = 0; i < arr.length; i++) {
-    var it = arr[i];
-    items += '<tr><td>'+(i+1)+'</td><td>'+esc(it.name)+'</td><td>'+it.qty+' '+it.unit+'</td><td>₹'+F(it.price)+'</td><td>₹'+F(it.amount)+'</td></tr>';
-  }
-  var disc = N(d.discountAmount) > 0 ? '<div class="pr-tr"><span>Discount'+(d.discountType==="percent"?" ("+d.discountValue+"%)" : "")+':</span><span>-₹'+F(d.discountAmount)+'</span></div>' : "";
-  var tax = N(d.tax) > 0 ? '<div class="pr-tr"><span>GST ('+d.gstRate+'%):</span><span>₹'+F(d.tax)+'</span></div>' : "";
-
-  var html = '<div class="pr-bill"><div class="pr-head"><div class="pr-shop">'+(sets.shop||"Singh Medicals")+'</div><div class="pr-addr">Batto More, Petrol Pump ke Bagal, Kandi, Garhwa - 822120</div><div class="pr-phone">📞 '+(sets.phone||"7479551525")+' · 💳 '+(sets.upi||"")+'</div></div><hr class="pr-div"><div class="pr-info"><strong>Bill:</strong> '+d.billNo+' (Customer #'+d.serialNumber+')</div><div class="pr-info"><strong>Date:</strong> '+d.date+' '+d.time+'</div><div class="pr-info"><strong>Patient:</strong> '+esc(d.patientName)+'</div><div class="pr-info"><strong>Mobile:</strong> '+d.mobile+'</div>'+(d.address?'<div class="pr-info"><strong>Addr:</strong> '+esc(d.address)+'</div>':"")+'<hr class="pr-div"><table class="pr-items"><thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Price</th><th>Amt</th></tr></thead><tbody>'+items+'</tbody></table><div class="pr-totals"><div class="pr-tr"><span>Subtotal:</span><span>₹'+F(d.subtotal)+'</span></div>'+disc+tax+'<div class="pr-tr grand"><span>Total:</span><span>₹'+F(d.grandTotal)+'</span></div><div class="pr-tr"><span>Payment:</span><span>'+d.paymentMode+(d.paymentRef?" ("+esc(d.paymentRef)+")":"")+'</span></div></div><div class="pr-foot"><strong>Thank You! 🙏</strong><br>© '+(sets.shop||"Singh Medicals")+'</div></div>';
-
-  var pz = $("printZone");
-  pz.innerHTML = html;
-  pz.style.display = "block";
-  setTimeout(function() {
-    window.print();
-    setTimeout(function() { pz.style.display = "none"; pz.innerHTML = ""; }, 2000);
-  }, 300);
-}
-
-/* ===== BILLS HISTORY ===== */
-function rBills(f) {
-  var list = bills;
-  if (f) {
-    var fl = f.toLowerCase();
-    list = bills.filter(function(b) { return ((b.v.billNo||"")+(b.v.patientName||"")+(b.v.mobile||"")+String(b.v.serialNumber||"")).toLowerCase().indexOf(fl) !== -1; });
-  }
-  var today = new Date().toISOString().split("T")[0];
-  var tc = 0, tdr = 0, tr = 0, td = 0;
-  bills.forEach(function(b) {
-    tr += N(b.v.grandTotal);
-    td += N(b.v.discountAmount);
-    if (b.v.date === today) { tc++; tdr += N(b.v.grandTotal); }
-  });
-  $("blStats").innerHTML = scard("👨‍⚕️", bills.length, "Customers Served", "sp") + scard("📅", tc, "Today", "sg") + scard("💰", "₹" + tdr.toFixed(0), "Today Rev", "sb") + scard("💵", "₹" + tr.toFixed(0), "Total Rev", "sg") + scard("🏷️", "₹" + td.toFixed(0), "Discounts", "sa");
-
-  var t = $("blTbl");
-  if (!list.length) { t.innerHTML = '<tr><td colspan="10"><div class="empty"><div class="empty-ic">🧾</div><div class="empty-s">No bills</div></div></td></tr>'; return; }
-  var html = "";
-  for (var i = 0; i < list.length; i++) {
-    var b = list[i], pm = b.v.paymentMode || "Cash";
-    var pmc = pm.indexOf("UPI") !== -1 ? "bdg-p" : pm === "Credit" ? "bdg-a" : "bdg-g";
-    var disc = N(b.v.discountAmount) > 0 ? '<span class="bdg bdg-p">-₹'+N(b.v.discountAmount).toFixed(0)+'</span>' : "—";
-    var sn = b.v.serialNumber ? '<span style="color:var(--purple);font-weight:900">#'+b.v.serialNumber+'</span> ' : "";
-    html += '<tr><td style="font-family:monospace;font-weight:700;font-size:10px">'+sn+(b.v.billNo||"")+'</td><td style="font-weight:700">'+esc(b.v.patientName)+'</td><td>'+(b.v.mobile||"")+'</td><td><span class="bdg bdg-b">'+(b.v.itemCount||0)+'</span></td><td>₹'+F(b.v.subtotal)+'</td><td>'+disc+'</td><td style="font-weight:800;color:var(--pd)">₹'+F(b.v.grandTotal)+'</td><td><span class="bdg '+pmc+'">'+pm+'</span></td><td style="font-size:10px">'+(b.v.date||"")+'</td><td style="white-space:nowrap"><button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-act="viewbill" data-key="'+b.k+'">👁️</button> <button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-act="printbill" data-key="'+b.k+'">🖨️</button> <button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-act="delbill" data-key="'+b.k+'">🗑️</button></td></tr>';
-  }
-  t.innerHTML = html;
-}
-
-function viewBill(k) {
-  var b = bills.find(function(x) { return x.k === k; });
-  if (!b) return;
-  curBillK = k;
-  var d = b.v;
-  var items = "";
-  var arr = d.items || [];
-  for (var i = 0; i < arr.length; i++) {
-    var it = arr[i];
-    items += '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px"><span>'+(i+1)+'. <b>'+esc(it.name)+'</b> × '+it.qty+' '+it.unit+'</span><span style="font-weight:700">₹'+F(it.amount)+'</span></div>';
-  }
-  var disc = N(d.discountAmount) > 0 ? '<div style="display:flex;justify-content:space-between;padding:5px 0;color:#7c3aed;font-size:12px"><span>🏷️ Discount</span><span>-₹'+F(d.discountAmount)+'</span></div>' : "";
-  var sn = d.serialNumber ? '<div><div style="font-size:10px;color:var(--muted);font-weight:700">CUSTOMER #</div><div style="font-family:Poppins;font-weight:900;font-size:22px;color:var(--purple)">'+d.serialNumber+'</div></div>' : "";
-
-  $("billDetBody").innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">'+sn+'<div><div style="font-size:10px;color:var(--muted);font-weight:700">BILL #</div><div style="font-family:monospace;font-weight:800;font-size:15px">'+(d.billNo||"")+'</div></div><div><div style="font-size:10px;color:var(--muted);font-weight:700">DATE</div><div style="font-weight:700">'+(d.date||"")+" "+(d.time||"")+'</div></div><div><div style="font-size:10px;color:var(--muted);font-weight:700">PATIENT</div><div style="font-weight:700">'+esc(d.patientName)+'</div></div><div><div style="font-size:10px;color:var(--muted);font-weight:700">MOBILE</div><div style="font-weight:700">'+(d.mobile||"")+'</div></div></div><div style="background:var(--bg);border-radius:9px;padding:10px;border:1px solid var(--border)">'+items+'</div><div style="margin-top:12px;background:#f0fdf4;border-radius:9px;padding:12px;border:1px solid #bbf7d0"><div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px"><span>Subtotal</span><span>₹'+F(d.subtotal)+'</span></div>'+disc+'<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-family:Poppins;font-size:18px;font-weight:800;color:var(--pd);border-top:2px solid var(--p);margin-top:4px"><span>Total</span><span>₹'+F(d.grandTotal)+'</span></div><div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px"><span>Payment</span><span style="font-weight:700">'+(d.paymentMode||"Cash")+'</span></div></div>';
-  oMdl("mdlBill");
-}
-
-function printByK(k) {
-  var b = bills.find(function(x) { return x.k === k; });
-  if (!b) return;
-  curBillK = k;
-  printBill(b.v);
-}
-
-function rePrint() { if (curBillK) printByK(curBillK); }
-
-function delBill(k) {
-  if (_deleting[k]) return;
-  if (!confirm("Delete bill?")) return;
-  _deleting[k] = true;
-  db.ref("bills/" + k).remove().then(function() {
-    toast("Deleted"); cMdl("mdlBill"); delete _deleting[k];
-  }).catch(function() { toast("Failed", "err"); delete _deleting[k]; });
-}
-
-/* ===== EVENT DELEGATION (fixes delete-all bug) ===== */
-document.addEventListener("click", function(e) {
-  // Close suggestion
-  var sg = $("sugBox");
-  if (sg && !e.target.closest("#bMedNm") && !e.target.closest("#sugBox")) {
-    sg.classList.remove("open");
-  }
-  // Close modal on backdrop
-  if (e.target.classList.contains("mdl")) {
-    e.target.classList.remove("on");
-  }
-  // Handle actions via data-act
-  var el = e.target.closest("[data-act]");
-  if (!el) return;
-  var act = el.getAttribute("data-act");
-  var key = el.getAttribute("data-key");
-  var idx = el.getAttribute("data-idx");
-
-  switch (act) {
-    case "status": oStatus(key, el.getAttribute("data-st")); break;
-    case "delord": delOrd(key); break;
-    case "editmed": editMed(key); break;
-    case "delmed": delMed(key); break;
-    case "delrev": delRev(key); break;
-    case "viewbill": viewBill(key); break;
-    case "printbill": printByK(key); break;
-    case "delbill": delBill(key); break;
-    case "pickmed": pickMed(key); break;
-    case "rmitem": rmItem(parseInt(idx)); break;
-  }
+// =====================
+// DATA - Real-time listeners
+// =====================
+function loadData(){
+$('tbDate').textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+if(!db)return;
+
+db.ref('admin_settings').on('value',function(s){
+if(s.exists()){sets=Object.assign(sets,s.val());}
+$('sShop').value=sets.shop||'';$('sPhone').value=sets.phone||'';$('sUPI').value=sets.upi||'';$('sGST').value=sets.gst||0;
 });
 
-document.addEventListener("keydown", function(e) {
-  if (e.key === "Enter") {
-    var id = document.activeElement ? document.activeElement.id : "";
-    if (id === "inpLoginPass" || id === "inpLoginEmail") login();
-    else if (id === "inpRegPass2") register();
-    else if (id === "inpForgotEmail") forgot();
-    else if (id === "bMedPr" || id === "bMedQt") addItem();
-  }
+db.ref('orders').on('value',function(s){
+orders=[];
+if(s.exists())s.forEach(function(c){orders.unshift({k:c.key,v:c.val()});});
+var p=orders.filter(function(o){return o.v.status!=='Delivered'&&o.v.status!=='Cancelled';}).length;
+var b=$('oBadge');if(p>0){b.textContent=p;b.style.display='inline';}else b.style.display='none';
+// Always render dashboard and orders when data changes
+rDash();
+if(curPage==='orders')rOrders();
 });
 
-/* ===== INIT ===== */
-function init() {
-  if (auth) {
-    auth.onAuthStateChanged(onAuth);
-  }
-  $("bDate").value = new Date().toISOString().split("T")[0];
-  setInterval(function() {
-    $("tbDate").textContent = new Date().toLocaleDateString("en-IN", { weekday:"short", day:"numeric", month:"short", year:"numeric" });
-  }, 60000);
+db.ref('medicines').on('value',function(s){
+meds=[];
+if(s.exists())s.forEach(function(c){meds.push({k:c.key,v:c.val()});});
+// Always render relevant pages
+rDash();
+if(curPage==='inventory')rInv();
+});
+
+db.ref('customers').on('value',function(s){
+custs=[];
+if(s.exists())s.forEach(function(c){custs.push({k:c.key,v:c.val()});});
+if(curPage==='customers')rCust();
+});
+
+db.ref('reviews').on('value',function(s){
+revs=[];
+if(s.exists())s.forEach(function(c){revs.push({k:c.key,v:c.val()});});
+if(curPage==='reviews')rRevs();
+});
+
+db.ref('bills').on('value',function(s){
+bills=[];
+if(s.exists())s.forEach(function(c){bills.unshift({k:c.key,v:c.val()});});
+rDash();
+if(curPage==='bills')rBills();
+});
 }
 
-/* ===== PUBLIC API ===== */
-window.A = {
-  init: init, login: login, register: register, forgot: forgot, logout: logout,
-  showLogin: showLogin, showReg: showReg, showForgot: showForgot, toggleEye: toggleEye,
-  go: go, toggleSB: toggleSB, oMdl: oMdl, cMdl: cMdl,
-  fOrders: function(q) { rOrders(q); },
-  oStatus: oStatus, updStatus: updStatus, delOrd: delOrd,
-  fInv: function(q) { rInv(q); },
-  addMed: addMed, editMed: editMed, saveMed: saveMed, delMed: delMed,
-  fCust: function(q) { rCust(q); },
-  delRev: delRev, saveSets: saveSets,
-  medSrch: medSrch, pickMed: pickMed, addItem: addItem, rmItem: rmItem,
-  calc: calc, saveBill: saveBill, clearBill: clearBill,
-  fBills: function(q) { rBills(q); },
-  viewBill: viewBill, printByK: printByK, rePrint: rePrint, delBill: delBill
+function scard(ic,val,lbl,cl){return '<div class="scard '+cl+'"><div class="sc-ic">'+ic+'</div><div class="sc-num">'+val+'</div><div class="sc-lbl">'+lbl+'</div></div>';}
+function stBdg(s){return '<span class="bdg '+(s==='Delivered'?'bdg-g':s==='Cancelled'?'bdg-r':s==='Confirmed'?'bdg-b':'bdg-a')+'">'+esc(s)+'</span>';}
+
+// =====================
+// DASHBOARD
+// =====================
+function rDash(){
+if(curPage!=='dashboard'&&curPage!=='')return; // Only render if on dashboard
+var tO=orders.length,pO=orders.filter(function(o){var s=o.v.status;return s!=='Delivered'&&s!=='Cancelled';}).length;
+var tM=meds.length,lo=meds.filter(function(m){return N(m.v.qty)>0&&N(m.v.qty)<10;}).length,ou=meds.filter(function(m){return N(m.v.qty)<=0;}).length;
+var tI=new Date().toISOString().split('T')[0],tR=0,tdR=0;
+bills.forEach(function(b){tR+=N(b.v.grandTotal);if(b.v.date===tI)tdR+=N(b.v.grandTotal);});
+var ds=$('dStats');if(ds)ds.innerHTML=scard('📦',tO,'Orders','si')+scard('⏳',pO,'Pending','sa')+scard('🧾',bills.length,'Bills','sp')+scard('💰','₹'+tdR.toFixed(0),'Today','sg')+scard('💊',tM,'Medicines','sb')+scard('⚠️',lo,'Low Stock','sa')+scard('🚫',ou,'Out','sr')+scard('💵','₹'+tR.toFixed(0),'Total Rev','sg');
+var t=$('dOrdTbl');if(!t)return;
+if(!orders.length){t.innerHTML='<tr><td colspan="7"><div class="empty"><div class="empty-ic">📦</div><div class="empty-s">No orders yet</div></div></td></tr>';return;}
+t.innerHTML=orders.slice(0,5).map(function(o){var s=o.v.status||'Order Placed';return '<tr><td style="font-family:monospace;font-weight:700;font-size:10px">#'+o.k.slice(-6).toUpperCase()+'</td><td style="font-weight:700">'+esc(o.v.name)+'</td><td>'+esc(o.v.mobile)+'</td><td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(o.v.medicines)+'</td><td>'+stBdg(s)+'</td><td style="font-size:10px">'+(o.v.date||'')+'</td><td><button class="btn btn-s" style="font-size:9px;padding:3px 7px" onclick="A.oStatus(\''+o.k+'\',\''+esc(s)+'\')">✏️</button></td></tr>';}).join('');
+}
+
+// =====================
+// ORDERS - FIXED: Individual delete, no mass deletion
+// =====================
+function rOrders(f){
+var list=orders;if(f){var fl=f.toLowerCase();list=orders.filter(function(o){return((o.v.name||'')+(o.v.mobile||'')+(o.v.medicines||'')+(o.v.status||'')).toLowerCase().indexOf(fl)!==-1;});}
+var p=orders.filter(function(o){return o.v.status==='Order Placed';}).length,c=orders.filter(function(o){return o.v.status==='Confirmed';}).length,d=orders.filter(function(o){return o.v.status==='Delivered';}).length,x=orders.filter(function(o){return o.v.status==='Cancelled';}).length;
+$('oStats').innerHTML=scard('📋',p,'Placed','sa')+scard('✅',c,'Confirmed','sb')+scard('🎉',d,'Delivered','sg')+scard('❌',x,'Cancelled','sr');
+var t=$('oTbl');
+if(!list.length){t.innerHTML='<tr><td colspan="9"><div class="empty"><div class="empty-ic">📦</div><div class="empty-s">No orders</div></div></td></tr>';return;}
+var html='';
+for(var i=0;i<list.length;i++){
+var o=list[i];var s=o.v.status||'Order Placed';
+html+='<tr><td style="font-family:monospace;font-weight:700;font-size:10px">#'+o.k.slice(-6).toUpperCase()+'</td><td style="font-weight:700">'+esc(o.v.name)+'</td><td>'+esc(o.v.mobile)+'</td><td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(o.v.medicines)+'</td><td>'+stBdg(s)+'</td><td style="font-size:10px">'+(o.v.delivery||'')+'</td><td style="font-size:10px">'+(o.v.payment||'')+'</td><td style="font-size:10px">'+(o.v.date||'')+'</td><td style="white-space:nowrap"><button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-action="status" data-key="'+o.k+'" data-status="'+esc(s)+'">✏️</button> <button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-action="delord" data-key="'+o.k+'">🗑️</button></td></tr>';
+}
+t.innerHTML=html;
+}
+function fOrders(q){rOrders(q);}
+function oStatus(k,s){$('msOid').value='#'+k.slice(-6).toUpperCase();$('msOid').dataset.key=k;$('msSt').value=s;oMdl('mdlStatus');}
+function updStatus(){var k=$('msOid').dataset.key,s=$('msSt').value;if(!k||!db)return;db.ref('orders/'+k).update({status:s}).then(function(){toast('Status → '+s);cMdl('mdlStatus');}).catch(function(){toast('Failed','err');});}
+
+// FIXED: Single delete with guard against double-clicks
+function delOrd(k){
+if(_deleting[k])return; // Already deleting this key
+if(!confirm('Delete this order?'))return;
+if(!db)return;
+_deleting[k]=true;
+db.ref('orders/'+k).remove().then(function(){
+toast('Order deleted');
+delete _deleting[k];
+}).catch(function(e){
+toast('Failed to delete','err');
+delete _deleting[k];
+});
+}
+
+// =====================
+// INVENTORY - FIXED: Individual delete
+// =====================
+function rInv(f){
+var list=meds;if(f){var fl=f.toLowerCase();list=meds.filter(function(m){return((m.v.name||'')+(m.v.brand||'')+(m.v.cat||'')).toLowerCase().indexOf(fl)!==-1;});}
+var tM=meds.length,ins=meds.filter(function(m){return N(m.v.qty)>0;}).length,lo=meds.filter(function(m){return N(m.v.qty)>0&&N(m.v.qty)<10;}).length,ou=meds.filter(function(m){return N(m.v.qty)<=0;}).length;
+$('iStats').innerHTML=scard('💊',tM,'Total','si')+scard('✅',ins,'In Stock','sg')+scard('⚠️',lo,'Low','sa')+scard('🚫',ou,'Out','sr');
+var t=$('iTbl');
+if(!list.length){t.innerHTML='<tr><td colspan="8"><div class="empty"><div class="empty-ic">💊</div><div class="empty-t">No medicines</div><div class="empty-s">Add your first medicine</div></div></td></tr>';return;}
+var html='';
+for(var i=0;i<list.length;i++){
+var m=list[i];var q=N(m.v.qty);var bc=q<=0?'bdg-r':q<10?'bdg-a':'bdg-g';var bl=q<=0?'Out':q<10?'Low ('+q+')':'✓ '+q;
+html+='<tr><td style="font-weight:700">'+esc(m.v.name)+'</td><td style="font-size:10px">'+(m.v.cat||'')+'</td><td style="font-size:10px">'+(m.v.brand||'')+'</td><td style="font-weight:700">₹'+N(m.v.price)+'</td><td><span class="bdg '+bc+'">'+bl+'</span></td><td style="font-size:10px">'+(m.v.unit||'')+'</td><td><span class="bdg '+(m.v.rx==='Yes'?'bdg-b':'bdg-gr')+'">'+(m.v.rx==='Yes'?'Rx':'OTC')+'</span></td><td style="white-space:nowrap"><button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-action="editmed" data-key="'+m.k+'">✏️</button> <button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-action="delmed" data-key="'+m.k+'">🗑️</button></td></tr>';
+}
+t.innerHTML=html;
+}
+function fInv(q){rInv(q);}
+function addMed(){$('mmTitle').textContent='💊 Add Medicine';$('mmKey').value='';['mmNm','mmBr','mmPr','mmQt','mmUn'].forEach(function(id){$(id).value='';});$('mmCat').value='Medicines';$('mmRx').value='No';oMdl('mdlMed');}
+function editMed(k){var m=meds.find(function(x){return x.k===k;});if(!m)return;$('mmTitle').textContent='✏️ Edit';$('mmKey').value=k;$('mmNm').value=m.v.name||'';$('mmBr').value=m.v.brand||'';$('mmCat').value=m.v.cat||'Medicines';$('mmPr').value=m.v.price||'';$('mmQt').value=m.v.qty||'';$('mmUn').value=m.v.unit||'';$('mmRx').value=m.v.rx||'No';oMdl('mdlMed');}
+function saveMed(){var k=$('mmKey').value,n=$('mmNm').value.trim();if(!n){toast('Name required','err');return;}if(!db)return;var d={name:n,brand:$('mmBr').value.trim(),cat:$('mmCat').value,price:N($('mmPr').value),qty:parseInt($('mmQt').value)||0,unit:$('mmUn').value.trim(),rx:$('mmRx').value};(k?db.ref('medicines/'+k).update(d):db.ref('medicines').push(d)).then(function(){toast('Saved!');cMdl('mdlMed');}).catch(function(){toast('Failed','err');});}
+
+function delMed(k){
+if(_deleting[k])return;
+if(!confirm('Delete this medicine?'))return;
+if(!db)return;
+_deleting[k]=true;
+db.ref('medicines/'+k).remove().then(function(){
+toast('Medicine deleted');
+delete _deleting[k];
+}).catch(function(){
+toast('Failed','err');
+delete _deleting[k];
+});
+}
+
+// =====================
+// CUSTOMERS
+// =====================
+function rCust(f){var list=custs;if(f){var fl=f.toLowerCase();list=custs.filter(function(c){return((c.v.phone||'')+c.k).toLowerCase().indexOf(fl)!==-1;});}var t=$('cTbl');if(!list.length){t.innerHTML='<tr><td colspan="3"><div class="empty"><div class="empty-ic">👥</div><div class="empty-s">No customers</div></div></td></tr>';return;}t.innerHTML=list.map(function(c){var oc=orders.filter(function(o){return o.v.mobile===c.v.phone;}).length;return '<tr><td style="font-weight:700">+91 '+(c.v.phone||c.k)+'</td><td style="font-size:10px">'+(c.v.lastLogin||'—')+'</td><td><span class="bdg bdg-b">'+oc+'</span></td></tr>';}).join('');}
+function fCust(q){rCust(q);}
+
+// =====================
+// REVIEWS - FIXED: Individual delete
+// =====================
+function rRevs(){var t=$('rTbl');if(!revs.length){t.innerHTML='<tr><td colspan="6"><div class="empty"><div class="empty-ic">⭐</div><div class="empty-s">No reviews</div></div></td></tr>';return;}
+var html='';
+for(var i=0;i<revs.length;i++){
+var r=revs[i];
+html+='<tr><td style="font-weight:700">'+esc(r.v.name)+'</td><td style="font-size:10px">'+(r.v.loc||'')+'</td><td style="color:#f59e0b">'+'★'.repeat(N(r.v.stars)||5)+'</td><td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.v.text)+'</td><td style="font-size:10px">'+(r.v.date||'')+'</td><td><button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-action="delrev" data-key="'+r.k+'">🗑️</button></td></tr>';
+}
+t.innerHTML=html;
+}
+
+function delRev(k){
+if(_deleting[k])return;
+if(!confirm('Delete this review?'))return;
+if(!db)return;
+_deleting[k]=true;
+db.ref('reviews/'+k).remove().then(function(){
+toast('Review deleted');
+delete _deleting[k];
+}).catch(function(){
+toast('Failed','err');
+delete _deleting[k];
+});
+}
+
+function saveSets(){var d={shop:$('sShop').value.trim()||'Singh Medicals',phone:$('sPhone').value.trim()||'7479551525',upi:$('sUPI').value.trim()||'7479551525@ybl',gst:N($('sGST').value)};sets=d;if(db)db.ref('admin_settings').set(d).then(function(){toast('Settings saved!');}).catch(function(){toast('Failed','err');});}
+
+// =====================
+// BILLING
+// =====================
+function initBill(){
+bItems=[];selMedK=null;billingReady=true;_saving=false;
+['bName','bMob','bAddr','bMedNm','bMedPr','bMedUn','bRef'].forEach(function(id){$(id).value='';});
+$('bDate').value=new Date().toISOString().split('T')[0];
+$('bMedQt').value='1';$('bPay').value='Cash';$('dscTyp').value='percent';$('dscVal').value='';
+genBillNo();rBItems();calc();
+var s1=$('btnSaveBill'),s2=$('btnPrintBill');
+if(s1)s1.disabled=false;if(s2)s2.disabled=false;
+}
+
+function genBillNo(){var d=new Date();bCnt++;var n='SM'+String(d.getFullYear()).slice(2)+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0')+String(d.getSeconds()).padStart(2,'0')+'-'+bCnt;$('billNo').textContent=n;return n;}
+
+function medSrch(q){
+var sg=$('sugBox');if(!q||q.trim().length<1){sg.classList.remove('open');return;}
+var ql=q.toLowerCase(),found=meds.filter(function(m){return((m.v.name||'').toLowerCase().indexOf(ql)!==-1||(m.v.brand||'').toLowerCase().indexOf(ql)!==-1);});
+if(!found.length){sg.innerHTML='<div class="sug-item" style="color:var(--muted)">Not found — type price manually</div>';sg.classList.add('open');selMedK=null;return;}
+sg.innerHTML=found.slice(0,8).map(function(m){var q=N(m.v.qty);var st=q<=0?'<span style="color:red">Out</span>':q<10?'<span style="color:orange">Low:'+q+'</span>':'<span style="color:green">'+q+'</span>';return '<div class="sug-item" data-action="pickmed" data-key="'+m.k+'"><div><b>'+esc(m.v.name)+'</b> <span style="font-size:10px;color:#999">'+(m.v.brand||'')+'</span></div><div style="text-align:right"><span style="color:var(--p);font-weight:800">₹'+N(m.v.price)+'</span><br>'+st+'</div></div>';}).join('');
+sg.classList.add('open');
+}
+
+function pickMed(k){var m=meds.find(function(x){return x.k===k;});if(!m)return;selMedK=k;$('bMedNm').value=m.v.name||'';$('bMedPr').value=m.v.price||'';$('bMedUn').value=m.v.unit||'strip';$('bMedQt').value='1';$('sugBox').classList.remove('open');$('bMedQt').focus();}
+
+function addItem(){
+var nm=$('bMedNm').value.trim(),qt=parseInt($('bMedQt').value)||0,pr=N($('bMedPr').value),un=$('bMedUn').value.trim()||'unit';
+if(!nm){toast('Medicine name!','err');return;}if(qt<=0){toast('Qty!','err');return;}if(pr<=0){toast('Price!','err');return;}
+if(selMedK){var med=meds.find(function(m){return m.k===selMedK;});if(med){var already=0;bItems.forEach(function(it){if(it.mk===selMedK)already+=it.qt;});var avail=N(med.v.qty)-already;if(qt>avail){toast('Only '+Math.max(0,avail)+' in stock!','err');return;}}}
+bItems.push({mk:selMedK,nm:nm,qt:qt,pr:pr,un:un,amt:qt*pr});
+$('bMedNm').value='';$('bMedQt').value='1';$('bMedPr').value='';$('bMedUn').value='';selMedK=null;
+rBItems();calc();$('bMedNm').focus();toast(nm+' added');
+}
+
+function rmItem(i){if(i>=0&&i<bItems.length){bItems.splice(i,1);rBItems();calc();}}
+
+function rBItems(){var t=$('bItmTbl');$('bItmCnt').textContent=bItems.length;if(!bItems.length){t.innerHTML='<tr><td colspan="7"><div class="it-empty">📋 Add medicines above</div></td></tr>';return;}
+var html='';
+for(var i=0;i<bItems.length;i++){
+var it=bItems[i];
+html+='<tr><td style="color:var(--muted);font-weight:700">'+(i+1)+'</td><td style="font-weight:700">'+esc(it.nm)+'</td><td style="font-size:10px">'+it.un+'</td><td>'+it.qt+'</td><td>₹'+F(it.pr)+'</td><td style="font-weight:700;color:var(--pd)">₹'+F(it.amt)+'</td><td><button class="rm-btn" data-action="rmitem" data-idx="'+i+'">✕</button></td></tr>';
+}
+t.innerHTML=html;
+}
+
+function calc(){
+var sub=0;bItems.forEach(function(it){sub+=N(it.amt);});
+var dt=$('dscTyp').value,dv=N($('dscVal').value),da=0,dp=$('dscPrev');
+if(dv>0&&sub>0){if(dt==='percent'){da=sub*(dv/100);dp.textContent=dv+'% = ₹'+F(da)+' off';}else{da=Math.min(dv,sub);dp.textContent='₹'+F(da)+' flat off';}if(da>sub)da=sub;$('blsDiscR').style.display='flex';$('blsDisc').textContent='-₹'+F(da);}else{dp.textContent='No discount';$('blsDiscR').style.display='none';da=0;}
+var gr=N(sets.gst),taxable=sub-da,tax=taxable*(gr/100),grand=taxable+tax;
+$('blsSub').textContent='₹'+F(sub);$('blsTax').textContent=gr>0?'₹'+F(tax)+' ('+gr+'%)':'₹0.00';$('blsTotal').textContent='₹'+F(grand);$('blsSumSub').textContent=bItems.length+' items · ₹'+F(grand);
+return{sub:sub,da:da,dt:dt,dv:dv,tax:tax,gr:gr,grand:grand};
+}
+
+// =====================================================
+// SAVE BILL - FIXED: Uses Firebase transactions for stock
+// =====================================================
+function saveBill(print){
+if(_saving){toast('Already saving...','warn');return;}
+var nm=$('bName').value.trim(),mob=$('bMob').value.replace(/\D/g,'').trim();
+if(!nm){toast('Patient name!','err');return;}
+if(mob.length!==10){toast('Valid 10-digit mobile!','err');return;}
+if(!bItems.length){toast('Add items!','err');return;}
+if(!db){toast('Firebase error','err');return;}
+
+_saving=true;
+var s1=$('btnSaveBill'),s2=$('btnPrintBill');
+if(s1)s1.disabled=true;if(s2)s2.disabled=true;
+
+var tot=calc();
+var billNo=$('billNo').textContent;
+
+// Build stock deduction map: medKey -> total qty to deduct
+var stockMap={};
+var itemNames={};
+bItems.forEach(function(it){
+if(it.mk){
+if(!stockMap[it.mk])stockMap[it.mk]=0;
+stockMap[it.mk]+=it.qt;
+itemNames[it.mk]=it.nm;
+}
+});
+
+var billData={
+billNo:billNo,
+patientName:nm,
+mobile:mob,
+address:$('bAddr').value.trim(),
+date:$('bDate').value||new Date().toISOString().split('T')[0],
+time:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),
+items:bItems.map(function(it){return{medKey:it.mk||null,name:it.nm,qty:it.qt,price:it.pr,unit:it.un,amount:it.amt};}),
+subtotal:tot.sub,discountType:tot.dt,discountValue:tot.dv,discountAmount:tot.da,
+gstRate:tot.gr,tax:tot.tax,grandTotal:tot.grand,
+paymentMode:$('bPay').value,paymentRef:$('bRef').value.trim(),
+timestamp:new Date().toISOString(),itemCount:bItems.length,
+createdBy:curUser?curUser.email:'',
+stockUpdated:false
 };
 
-document.addEventListener("DOMContentLoaded", init);
+// Show loader
+$('stockLoader').classList.add('on');
 
+// STEP 1: Save bill first
+db.ref('bills').push(billData).then(function(ref){
+curBillK=ref.key;
+var medKeys=Object.keys(stockMap);
+
+if(medKeys.length===0){
+// No inventory items to update
+db.ref('bills/'+curBillK).update({stockUpdated:true});
+$('stockLoader').classList.remove('on');
+_saving=false;
+toast('✅ Bill saved!');
+if(print)printBill(billData);
+billingReady=false;initBill();
+return;
+}
+
+// STEP 2: Use Firebase TRANSACTION for each medicine
+var promises=[];
+for(var i=0;i<medKeys.length;i++){
+(function(mk){
+var deductQty=stockMap[mk];
+var p=db.ref('medicines/'+mk+'/qty').transaction(function(currentQty){
+if(currentQty===null)return 0;
+var newQty=Math.max(0,(Number(currentQty)||0)-deductQty);
+return newQty;
+});
+promises.push(p);
+})(medKeys[i]);
+}
+
+// STEP 3: Wait for all transactions
+Promise.all(promises).then(function(results){
+var allOk=true;
+for(var r=0;r<results.length;r++){
+if(!results[r].committed){
+allOk=false;
+console.error('Transaction failed for:',medKeys[r]);
+}
+}
+
+// STEP 4: Write inventory logs
+var logUpdates={};
+for(var j=0;j<medKeys.length;j++){
+var logKey=db.ref('inventory_log').push().key;
+logUpdates['inventory_log/'+logKey]={
+type:'sale',
+billNo:billNo,
+billKey:curBillK,
+medKey:medKeys[j],
+medName:itemNames[medKeys[j]]||'',
+qtySold:stockMap[medKeys[j]],
+timestamp:new Date().toISOString()
+};
+}
+if(Object.keys(logUpdates).length>0){
+db.ref().update(logUpdates).catch(function(e){console.error('Log error:',e);});
+}
+
+// STEP 5: Mark bill stock updated
+db.ref('bills/'+curBillK).update({stockUpdated:true});
+
+$('stockLoader').classList.remove('on');
+_saving=false;
+
+if(allOk){
+toast('✅ Bill saved & stock updated!');
+}else{
+toast('⚠️ Bill saved, some stock updates may have issues','warn');
+}
+
+if(print)printBill(billData);
+billingReady=false;
+initBill();
+
+}).catch(function(err){
+console.error('Stock transaction error:',err);
+$('stockLoader').classList.remove('on');
+_saving=false;
+db.ref('bills/'+curBillK).update({stockUpdated:false,stockError:err.message||'unknown'});
+toast('⚠️ Bill saved but stock update failed!','err');
+if(print)printBill(billData);
+billingReady=false;
+initBill();
+});
+
+}).catch(function(err){
+console.error('Bill save failed:',err);
+$('stockLoader').classList.remove('on');
+_saving=false;
+if(s1)s1.disabled=false;if(s2)s2.disabled=false;
+toast('Bill save FAILED!','err');
+});
+}
+
+function clearBill(){if(bItems.length&&!confirm('Clear bill?'))return;billingReady=false;initBill();toast('Cleared');}
+
+// =====================
+// PRINT
+// =====================
+function printBill(d){
+var items=(d.items||[]).map(function(it,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(it.name)+'</td><td>'+it.qty+' '+it.unit+'</td><td>₹'+F(it.price)+'</td><td>₹'+F(it.amount)+'</td></tr>';}).join('');
+var disc=N(d.discountAmount)>0?'<div class="pr-tr"><span>Discount'+(d.discountType==='percent'?' ('+d.discountValue+'%)':'')+':</span><span>-₹'+F(d.discountAmount)+'</span></div>':'';
+var tax=N(d.tax)>0?'<div class="pr-tr"><span>GST ('+d.gstRate+'%):</span><span>₹'+F(d.tax)+'</span></div>':'';
+var html='<div class="pr-bill"><div class="pr-head"><div class="pr-shop">'+(sets.shop||'Singh Medicals')+'</div><div class="pr-addr">Batto More, Petrol Pump ke Bagal, Kandi, Garhwa - 822120</div><div class="pr-phone">📞 '+(sets.phone||'7479551525')+' · 💳 '+(sets.upi||'')+'</div></div><hr class="pr-div"><div class="pr-info"><strong>Bill #:</strong> '+d.billNo+'</div><div class="pr-info"><strong>Date:</strong> '+d.date+' '+d.time+'</div><div class="pr-info"><strong>Patient:</strong> '+esc(d.patientName)+'</div><div class="pr-info"><strong>Mobile:</strong> '+d.mobile+'</div>'+(d.address?'<div class="pr-info"><strong>Address:</strong> '+esc(d.address)+'</div>':'')+'<hr class="pr-div"><table class="pr-items"><thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Price</th><th>Amt</th></tr></thead><tbody>'+items+'</tbody></table><div class="pr-totals"><div class="pr-tr"><span>Subtotal:</span><span>₹'+F(d.subtotal)+'</span></div>'+disc+tax+'<div class="pr-tr grand"><span>Total:</span><span>₹'+F(d.grandTotal)+'</span></div><div class="pr-tr"><span>Payment:</span><span>'+d.paymentMode+(d.paymentRef?' ('+esc(d.paymentRef)+')':'')+'</span></div></div><div class="pr-foot"><strong>Thank You! 🙏</strong><br>© '+(sets.shop||'Singh Medicals')+'</div></div>';
+var pz=$('printZone');pz.innerHTML=html;pz.style.display='block';
+var cleanup=function(){pz.style.display='none';pz.innerHTML='';window.removeEventListener('afterprint',cleanup);};
+window.addEventListener('afterprint',cleanup);
+setTimeout(function(){window.print();setTimeout(function(){if(pz.style.display==='block'){pz.style.display='none';pz.innerHTML='';}},3000);},200);
+}
+
+// =====================
+// BILLS HISTORY
+// =====================
+function rBills(f){
+var list=bills;if(f){var fl=f.toLowerCase();list=bills.filter(function(b){return((b.v.billNo||'')+(b.v.patientName||'')+(b.v.mobile||'')).toLowerCase().indexOf(fl)!==-1;});}
+var tI=new Date().toISOString().split('T')[0],tc=0,tdr=0,tr=0,td=0;
+bills.forEach(function(b){tr+=N(b.v.grandTotal);td+=N(b.v.discountAmount);if(b.v.date===tI){tc++;tdr+=N(b.v.grandTotal);}});
+$('blStats').innerHTML=scard('🧾',bills.length,'Bills','sp')+scard('📅',tc,'Today','sg')+scard('💰','₹'+tdr.toFixed(0),'Today Rev','sb')+scard('💵','₹'+tr.toFixed(0),'Total Rev','sg')+scard('🏷️','₹'+td.toFixed(0),'Discounts','sa');
+var t=$('blTbl');
+if(!list.length){t.innerHTML='<tr><td colspan="10"><div class="empty"><div class="empty-ic">🧾</div><div class="empty-t">No bills</div><div class="empty-s">Create your first bill</div></div></td></tr>';return;}
+var html='';
+for(var i=0;i<list.length;i++){
+var b=list[i];var pm=b.v.paymentMode||'Cash';var pmc=pm.indexOf('UPI')!==-1?'bdg-p':pm==='Credit'?'bdg-a':'bdg-g';
+var disc=N(b.v.discountAmount)>0?'<span class="bdg bdg-p">-₹'+N(b.v.discountAmount).toFixed(0)+'</span>':'—';
+var suBdg=b.v.stockUpdated===false?'<span class="bdg bdg-r" title="Stock not updated">⚠️</span>':'';
+html+='<tr><td style="font-family:monospace;font-weight:700;font-size:10px">'+(b.v.billNo||'')+'</td><td style="font-weight:700">'+esc(b.v.patientName)+'</td><td>'+(b.v.mobile||'')+'</td><td><span class="bdg bdg-b">'+(b.v.itemCount||0)+'</span> '+suBdg+'</td><td>₹'+F(b.v.subtotal)+'</td><td>'+disc+'</td><td style="font-weight:800;color:var(--pd)">₹'+F(b.v.grandTotal)+'</td><td><span class="bdg '+pmc+'">'+pm+'</span></td><td style="font-size:10px">'+(b.v.date||'')+'</td><td style="white-space:nowrap"><button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-action="viewbill" data-key="'+b.k+'">👁️</button> <button class="btn btn-s" style="font-size:9px;padding:3px 6px" data-action="printbill" data-key="'+b.k+'">🖨️</button> <button class="btn btn-d" style="font-size:9px;padding:3px 6px" data-action="delbill" data-key="'+b.k+'">🗑️</button></td></tr>';
+}
+t.innerHTML=html;
+}
+function fBills(q){rBills(q);}
+
+function viewBill(k){
+var b=bills.find(function(x){return x.k===k;});if(!b)return;curBillK=k;var d=b.v;
+var items=(d.items||[]).map(function(it,i){return '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px"><span>'+(i+1)+'. <b>'+esc(it.name)+'</b> × '+it.qty+' '+it.unit+'</span><span style="font-weight:700">₹'+F(it.amount)+'</span></div>';}).join('');
+var disc=N(d.discountAmount)>0?'<div style="display:flex;justify-content:space-between;padding:5px 0;color:#7c3aed;font-size:12px"><span>🏷️ Discount'+(d.discountType==='percent'?' ('+d.discountValue+'%)':'')+'</span><span style="font-weight:700">-₹'+F(d.discountAmount)+'</span></div>':'';
+var tax=N(d.tax)>0?'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px"><span>GST ('+d.gstRate+'%)</span><span>₹'+F(d.tax)+'</span></div>':'';
+var stockWarn=d.stockUpdated===false?'<div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:10px;margin-bottom:12px;font-size:12px;color:#991b1b;font-weight:700">⚠️ Stock was NOT updated for this bill. Update inventory manually.</div>':'';
+$('billDetBody').innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px"><div><div style="font-size:10px;color:var(--muted);font-weight:700">BILL #</div><div style="font-family:monospace;font-weight:800;font-size:15px">'+(d.billNo||'')+'</div></div><div><div style="font-size:10px;color:var(--muted);font-weight:700">DATE</div><div style="font-weight:700">'+(d.date||'')+' '+(d.time||'')+'</div></div><div><div style="font-size:10px;color:var(--muted);font-weight:700">PATIENT</div><div style="font-weight:700">'+esc(d.patientName)+'</div></div><div><div style="font-size:10px;color:var(--muted);font-weight:700">MOBILE</div><div style="font-weight:700">'+(d.mobile||'')+'</div></div></div>'+stockWarn+'<div style="font-family:Poppins;font-size:13px;font-weight:700;margin-bottom:6px">Items ('+(d.itemCount||0)+')</div><div style="background:var(--bg);border-radius:9px;padding:10px;border:1px solid var(--border)">'+items+'</div><div style="margin-top:12px;background:#f0fdf4;border-radius:9px;padding:12px;border:1px solid #bbf7d0"><div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px"><span>Subtotal</span><span>₹'+F(d.subtotal)+'</span></div>'+disc+tax+'<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-family:Poppins;font-size:18px;font-weight:800;color:var(--pd);border-top:2px solid var(--p);margin-top:4px"><span>Total</span><span>₹'+F(d.grandTotal)+'</span></div><div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px"><span>Payment</span><span style="font-weight:700">'+(d.paymentMode||'Cash')+(d.paymentRef?' ('+esc(d.paymentRef)+')':'')+'</span></div></div>';
+oMdl('mdlBill');
+}
+function printByK(k){var b=bills.find(function(x){return x.k===k;});if(!b)return;curBillK=k;printBill(b.v);}
+function rePrint(){if(curBillK)printByK(curBillK);}
+
+function delBill(k){
+if(_deleting[k])return;
+if(!confirm('Delete bill? Stock will NOT be restored.'))return;
+if(!db)return;
+_deleting[k]=true;
+db.ref('bills/'+k).remove().then(function(){
+toast('Bill deleted');
+cMdl('mdlBill');
+delete _deleting[k];
+}).catch(function(){
+toast('Failed','err');
+delete _deleting[k];
+});
+}
+
+// =====================
+// EVENT DELEGATION - FIXED: Prevents multiple handler issues
+// =====================
+document.addEventListener('click',function(e){
+// Close suggestion dropdown
+var sg=$('sugBox');
+if(sg&&!e.target.closest('#bMedNm')&&!e.target.closest('#sugBox')){
+sg.classList.remove('open');
+}
+// Close modal on backdrop click
+if(e.target.classList.contains('mdl')){
+e.target.classList.remove('on');
+}
+
+// Handle data-action buttons (Event Delegation - fixes the delete-all bug)
+var actionEl=e.target.closest('[data-action]');
+if(!actionEl)return;
+
+var action=actionEl.getAttribute('data-action');
+var key=actionEl.getAttribute('data-key');
+var idx=actionEl.getAttribute('data-idx');
+
+switch(action){
+case 'status':
+oStatus(key,actionEl.getAttribute('data-status'));
+break;
+case 'delord':
+delOrd(key);
+break;
+case 'editmed':
+editMed(key);
+break;
+case 'delmed':
+delMed(key);
+break;
+case 'delrev':
+delRev(key);
+break;
+case 'viewbill':
+viewBill(key);
+break;
+case 'printbill':
+printByK(key);
+break;
+case 'delbill':
+delBill(key);
+break;
+case 'pickmed':
+pickMed(key);
+break;
+case 'rmitem':
+rmItem(parseInt(idx));
+break;
+}
+});
+
+document.addEventListener('keydown',function(e){
+if(e.key==='Enter'){
+var id=document.activeElement?document.activeElement.id:'';
+if(id==='inpLoginPass'||id==='inpLoginEmail')login();
+if(id==='inpRegPass2')register();
+if(id==='inpForgotEmail')forgot();
+if(id==='bMedPr'||id==='bMedQt')addItem();
+}
+});
+
+// =====================
+// INIT
+// =====================
+function init(){
+if(auth){auth.onAuthStateChanged(onAuth);}
+$('bDate').value=new Date().toISOString().split('T')[0];
+// Update date every minute
+setInterval(function(){
+$('tbDate').textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+},60000);
+}
+
+return{
+init:init,login:login,register:register,forgot:forgot,logout:logout,
+showLogin:showLogin,showReg:showReg,showForgot:showForgot,toggleEye:toggleEye,
+go:go,toggleSB:toggleSB,oMdl:oMdl,cMdl:cMdl,
+fOrders:fOrders,oStatus:oStatus,updStatus:updStatus,delOrd:delOrd,
+fInv:fInv,addMed:addMed,editMed:editMed,saveMed:saveMed,delMed:delMed,
+fCust:fCust,delRev:delRev,saveSets:saveSets,
+medSrch:medSrch,pickMed:pickMed,addItem:addItem,rmItem:rmItem,
+calc:calc,saveBill:saveBill,clearBill:clearBill,
+fBills:fBills,viewBill:viewBill,printByK:printByK,rePrint:rePrint,delBill:delBill
+};
 })();
+document.addEventListener('DOMContentLoaded',function(){A.init();});
 </script>
 </body>
 </html>
